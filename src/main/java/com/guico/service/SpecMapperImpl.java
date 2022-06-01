@@ -12,6 +12,10 @@ public class SpecMapperImpl implements SpecMapper {
 
     @Autowired
     private SpecMapper specMapper;
+//    setter
+    public void setSpecMapper(SpecMapper specMapper) {
+        this.specMapper = specMapper;
+    }
 
     public List selectAll() {
         return specMapper.selectAll();

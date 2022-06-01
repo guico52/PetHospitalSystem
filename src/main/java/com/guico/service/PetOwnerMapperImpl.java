@@ -12,6 +12,11 @@ public class PetOwnerMapperImpl implements PetOwnerMapper {
 
     @Autowired
     private PetOwnerMapper petOwnerMapper;
+//    setter
+    public void setPetOwnerMapper(PetOwnerMapper petOwnerMapper) {
+        this.petOwnerMapper = petOwnerMapper;
+    }
+
     public PetOwner selectPetOwnerByPetOwnerId(int PetOwnerId) {
         return petOwnerMapper.selectPetOwnerByPetOwnerId(PetOwnerId);
     }

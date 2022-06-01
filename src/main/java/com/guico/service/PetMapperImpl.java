@@ -10,29 +10,31 @@ import java.util.List;
 @Service
 public class PetMapperImpl implements PetMapper {
     @Autowired
-    private PetMapper mapper;
+    private PetMapper petMapper;
+
+
 //    setter
-    public void setMapper(PetMapper mapper) {
-        this.mapper = mapper;
+    public void setPetMapper(PetMapper petMapper) {
+        this.petMapper = petMapper;
     }
 
     public List selectAll() {
-        return mapper.selectAll();
+        return petMapper.selectAll();
     }
 
     public Pet selectById(int id) {
-        return mapper.selectById(id);
+        return petMapper.selectById(id);
     }
 
     public int insertPet(Pet pet) {
-        return mapper.insertPet(pet);
+        return petMapper.insertPet(pet);
     }
 
     public int updatePet(Pet pet) {
-        return mapper.updatePet(pet);
+        return petMapper.updatePet(pet);
     }
 
     public int deleteById(int id) {
-        return mapper.deleteById(id);
+        return petMapper.deleteById(id);
     }
 }

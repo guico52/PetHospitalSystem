@@ -10,6 +10,10 @@ import java.util.List;
 public class VetMapperImpl implements VetMapper {
     @Autowired
     private VetMapper vetMapper;
+//    setter
+    public void setVetMapper(VetMapper vetMapper) {
+        this.vetMapper = vetMapper;
+    }
 
 
     public List selectAll() {

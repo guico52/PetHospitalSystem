@@ -14,5 +14,23 @@
 
     <!--配置服务层-->
     <!--mybatis-config.xml中配置了Mapper接口，这里可以直接调用-->
-
+    <!--所有的bean均使用setter自动装配-->
+    <bean id="empMapperImpl" class="com.guico.service.EmpMapperImpl">
+        <property name="empMapper" ref="empMapper"/>
+    </bean>
+    <bean id="petMapperImpl" class="com.guico.service.PetMapperImpl">
+        <property name="petMapper" ref="petMapper"/>
+    </bean>
+    <bean id="petOwnerMapperImpl" class="com.guico.service.PetOwnerMapperImpl">
+        <property name="petOwnerMapper" ref="petOwnerMapper"/>
+    </bean>
+    <bean id="petVisitMapperImpl" class="com.guico.service.PetVisitMapperImpl">
+        <property name="petVisitMapper" ref="petVisitMapper"/>
+    </bean>
+    <bean id="specMapperImpl" class="com.guico.service.SpecMapperImpl">
+        <property name="specMapper" ref="specMapper"/>
+    </bean>
+    <bean id="vetMapperImpl" class="com.guico.service.VetMapperImpl">
+        <property name="vetMapper" ref="vetMapper"/>
+    </bean>
 </beans>

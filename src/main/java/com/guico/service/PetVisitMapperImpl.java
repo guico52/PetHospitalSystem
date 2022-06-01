@@ -11,6 +11,10 @@ import java.util.List;
 public class PetVisitMapperImpl implements PetVisitMapper {
     @Autowired
     private PetVisitMapper petVisitMapper;
+//    setter
+    public void setPetVisitMapper(PetVisitMapper petVisitMapper) {
+        this.petVisitMapper = petVisitMapper;
+    }
 
     public List selectAll() {
         return petVisitMapper.selectAll();
