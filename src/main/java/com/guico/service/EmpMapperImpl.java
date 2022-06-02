@@ -18,8 +18,8 @@ public class EmpMapperImpl implements EmpMapper {
         this.empMapper = empMapper;
     }
 
-    public Emp selectEmpById(Integer id) {
-        return empMapper.selectEmpById(id);
+    public Emp selectEmpByName(String name) {
+        return empMapper.selectEmpByName(name);
     }
 
     public List selectAll() {
@@ -36,6 +36,16 @@ public class EmpMapperImpl implements EmpMapper {
 
     public int deleteById(Integer id) {
         return empMapper.deleteById(id);
+    }
+
+    public boolean checkEmpLogin(String name, String password) {
+        Emp emp = empMapper.selectEmpByName(name);
+        return emp!=null && emp.getPassword().equals(password);
+    }
+
+    public boolean checkEmpRegisterName(String name) {
+        Emp emp = empMapper.selectEmpByName(name);
+        return emp==null;
     }
 
 

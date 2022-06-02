@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Mapper
 public interface EmpMapper {
-    Emp selectEmpById(Integer id);
+    Emp selectEmpByName(String name);
     List selectAll();
     int insertEmp(Emp emp);
     int updateEmp(Emp emp);
