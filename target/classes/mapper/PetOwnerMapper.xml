@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guico.mapper.PetOwnerMapper">
+    <select id="selectPetOwnerByPetOwnerId" resultType="com.guico.pojo.PetOwner">
+        SELECT * FROM owners WHERE id = #{petOwnerId}
+    </select>
+
+    <select id="selectAll" resultType="list">
+        SELECT * FROM owners
+    </select>
+
+    <delete id="deletePetOwnerByPetOwnerId" parameterType="int">
+        DELETE FROM owners WHERE id = #{petOwnerId}
+    </delete>
+
+    <insert id="insertPetOwner" parameterType="com.guico.pojo.PetOwner">
+        INSERT INTO owners(id, name, address, city, telephone) VALUES(#{id}, #{name}, #{address}, #{city}, #{telephone})
+    </insert>
+
+    <update id="updatePetOwner" parameterType="com.guico.pojo.PetOwner">
+        UPDATE owners SET name = #{name}, address = #{address}, city = #{city}, telephone = #{telephone} WHERE id = #{id}
+    </update>
+
+
+
+</mapper>

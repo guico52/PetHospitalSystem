@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guico.mapper.PetVisitMapper">
+    <select id="selectAll" resultType="list">
+        SELECT * FROM visits
+    </select>
+    
+    <select id="selectById" resultType="com.guico.pojo.PetVisit">
+        SELECT * FROM visits WHERE id = #{id}
+    </select>
+
+    <select id="selectByPetId" resultType="com.guico.pojo.PetVisit">
+        SELECT * FROM visits WHERE pet_id = #{petID}
+    </select>
+
+    <delete id="deleteById" parameterType="com.guico.pojo.PetVisit">
+        DELETE FROM visits WHERE id = #{id}
+    </delete>
+
+    <insert id="insertVisit" parameterType="com.guico.pojo.PetVisit">
+        INSERT INTO visits(id, pet_id, visit_date, vdescription) VALUES(#{id}, #{petID}, #{visitDate}, #{description})
+    </insert>
+
+    <update id="updateVisit" parameterType="com.guico.pojo.PetVisit">
+        UPDATE visits SET pet_id = #{petID}, visit_date = #{visitDate}, vdescription = #{description} WHERE id = #{id}
+    </update>
+
+</mapper>

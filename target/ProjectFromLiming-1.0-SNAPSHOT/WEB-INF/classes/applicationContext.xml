@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--这些文件装配了bean，全部导入，让web.xml中的处理器识别-->
+    <import resource="spring-service.xml"/>
+    <import resource="spring-mvc.xml"/>
+    <import resource="spring-dao.xml"/>
+</beans>

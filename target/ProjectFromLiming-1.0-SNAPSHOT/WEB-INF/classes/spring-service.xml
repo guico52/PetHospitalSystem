@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <import resource="spring-dao.xml"/>
+
+    <context:component-scan base-package="com.guico.service"/>
+    <!--声明式事务管理-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--注入数据源-->
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!--配置服务层-->
+    <!--mybatis-config.xml中配置了Mapper接口，这里可以直接调用-->
+    <!--所有的bean均使用setter自动装配-->
+    <bean id="empMapperImpl" class="com.guico.service.EmpMapperImpl">
+        <property name="empMapper" ref="empMapper"/>
+    </bean>
+    <bean id="petMapperImpl" class="com.guico.service.PetMapperImpl">
+        <property name="petMapper" ref="petMapper"/>
+    </bean>
+    <bean id="petOwnerMapperImpl" class="com.guico.service.PetOwnerMapperImpl">
+        <property name="petOwnerMapper" ref="petOwnerMapper"/>
+    </bean>
+    <bean id="petVisitMapperImpl" class="com.guico.service.PetVisitMapperImpl">
+        <property name="petVisitMapper" ref="petVisitMapper"/>
+    </bean>
+    <bean id="specMapperImpl" class="com.guico.service.SpecMapperImpl">
+        <property name="specMapper" ref="specMapper"/>
+    </bean>
+    <bean id="vetMapperImpl" class="com.guico.service.VetMapperImpl">
+        <property name="vetMapper" ref="vetMapper"/>
+    </bean>
+</beans>
