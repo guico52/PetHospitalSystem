@@ -14,15 +14,14 @@
     </select>
 
     <insert id="insertEmp" parameterType="com.guico.pojo.Emp">
-        insert into employee(id, name, password, email)
-        values (#{id}, #{name}, #{password}, #{email})
+        insert into employee(id, name, password)
+        values (#{id}, #{name}, #{password})
     </insert>
 
     <update id="updateEmp" parameterType="com.guico.pojo.Emp">
         update employee
         set name=#{name},
-            password=#{password},
-            email=#{email}
+            password=#{password}
         where id = #{id}
     </update>
 

@@ -6,14 +6,12 @@ public class Emp {
     private int id;
     private String name;
     private String password;
-    private String email;
 
 //    构造函数，id可为空，原因是如果插入数据库，id是自增的，不需要插入
-    public Emp(@Nullable int id, String name, String password, String email) {
+    public Emp(@Nullable int id, String name, String password) {
         this.id = id;
         this.name = name;
         this.password = password;
-        this.email = email;
     }
 
     public int getId() {
@@ -40,11 +38,4 @@ public class Emp {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

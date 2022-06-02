@@ -43,10 +43,6 @@ public class EmpMapperImpl implements EmpMapper {
         return emp!=null && emp.getPassword().equals(password);
     }
 
-    public boolean checkEmpRegisterName(String name) {
-        Emp emp = empMapper.selectEmpByName(name);
-        return emp==null;
-    }
 
 
 }
