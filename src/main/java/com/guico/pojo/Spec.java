@@ -5,20 +5,17 @@ import java.util.ArrayList;
 public class Spec {
     private int specId;
     private String specName;
-    private ArrayList<Vet> vets;
 
-//    全参构造
-    public Spec(int specId, String specName, ArrayList<Vet> vets) {
+    public Spec(int specId, String specName) {
         this.specId = specId;
         this.specName = specName;
-        this.vets = vets;
     }
-//    除了specId以外的构造
-    public Spec(String specName, ArrayList<Vet> vets) {
+//    除了specId的构造
+    public Spec(String specName) {
         this.specName = specName;
-        this.vets = vets;
     }
-//    setter和getter
+
+//    getter和setter
     public int getSpecId() {
         return specId;
     }
@@ -35,18 +32,9 @@ public class Spec {
         this.specName = specName;
     }
 
-    public ArrayList<Vet> getVets() {
-        return vets;
-    }
-
-    public void setVets(ArrayList<Vet>vets) {
-        this.vets = vets;
-    }
-
 //    toString
     @Override
     public String toString() {
-        return "Spec{" + "specId=" + specId + ", specName=" + specName + ", vets=" + vets + '}';
+        return "Spec{" + "specId=" + specId + ", specName=" + specName + '}';
     }
-
 }

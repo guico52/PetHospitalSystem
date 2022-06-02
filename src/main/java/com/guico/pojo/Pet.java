@@ -3,24 +3,31 @@ package com.guico.pojo;
 public class Pet {
     private int id;
     private String name;
-    private String type;
-    private String OwnerName ;
+    private String birthDate;
+    private int typeId;
+    private String typeName;
+    private int ownerId;
+    private String ownerName;
 
-    //    全参构造
-    public Pet(int id, String name, String type, String ownerName) {
+    public Pet(int id, String name, String birthDate, int typeId, String typeName, int ownerId, String ownerName) {
         this.id = id;
         this.name = name;
-        this.type = type;
-        OwnerName = ownerName;
-    }
-//    除了id的全参构造
-    public Pet(String name, String type, String ownerName) {
-        this.name = name;
-        this.type = type;
-        OwnerName = ownerName;
+        this.birthDate = birthDate;
+        this.typeId = typeId;
+        this.typeName = typeName;
+        this.ownerId = ownerId;
+        this.ownerName = ownerName;
     }
 
-    //所有属性的getter和setter方法
+    public Pet(String name, String birthDate, int typeId, String typeName, int ownerId, String ownerName) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.typeId = typeId;
+        this.typeName = typeName;
+        this.ownerId = ownerId;
+        this.ownerName = ownerName;
+    }
+
     public int getId() {
         return id;
     }
@@ -37,29 +44,56 @@ public class Pet {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getBirthDate() {
+        return birthDate;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getOwnerName() {
-        return OwnerName;
+        return ownerName;
     }
 
     public void setOwnerName(String ownerName) {
-        OwnerName = ownerName;
+        this.ownerName = ownerName;
     }
-//    toString方法
+
     @Override
     public String toString() {
         return "Pet{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", OwnerName='" + OwnerName + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", typeId=" + typeId +
+                ", typeName='" + typeName + '\'' +
+                ", ownerId=" + ownerId +
+                ", ownerName='" + ownerName + '\'' +
                 '}';
     }
 }

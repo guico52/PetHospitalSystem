@@ -1,6 +1,8 @@
 package com.guico.controller;
 
+import com.guico.pojo.Emp;
 import com.guico.service.EmpMapperImpl;
+import com.tencentcloudapi.cms.v20190321.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +19,14 @@ public class LoginController {
 //    返回登录页面
     @RequestMapping("/login")
     public String login(){
+        System.out.println("User login");
         return "login";
     }
 
 //    返回Client页面
     @RequestMapping("/client")
     public String client(){
+        System.out.println("User log in success, switch view to client page");
         return "client";
     }
 
@@ -35,13 +39,19 @@ public class LoginController {
 //        检查用户名和密码是否合法，合法则跳转到Client页面，不合法alter提示用户名或密码错误，异常使用try catch捕获
         if(mapper.checkEmpLogin(username,password)){
             try {
+//                将登录成功的emp对象放在session中，并跳转到Client页面
+                Emp emp = mapper.selectEmpByName(username);
+                request.getSession().setAttribute("emp",emp);
                 response.sendRedirect("/client");
+                System.out.println("User log in success");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else{
             try {
+//                登录不合法，提示用户名或密码错误
                 response.getWriter().println("<script>alert('用户名或密码错误！');</script>");
+                System.out.println("User log in failed");
             } catch (IOException e) {
                 e.printStackTrace();
             }

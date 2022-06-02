@@ -11,6 +11,13 @@
     <title>Title</title>
 </head>
 <body>
-
+<h3>爱心宠物诊所系统</h3>
+<table>
+    <tr>
+        <td><a href="/vet">兽医页面</a></td>
+        <td><a href="/pet">宠物界面</a></td>
+        <td></td>
+    </tr>
+</table>
 </body>
 </html>

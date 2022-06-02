@@ -20,7 +20,7 @@
 </head>
 <body>
 <!--登录表单-->
-<form id="loginForm" action="/checkLogin" method="post" >
+<form id="loginForm" action="/ProjectFromLiming/checkLogin" method="post" >
     <table>
         <tr>
             <td>用户名：</td>
@@ -33,7 +33,7 @@
             <td class="error" id="passwordError" hidden="hidden">请输入密码</td>
         </tr>
         <tr>
-            <td><input type="button" value="登录" id="submit" onclick="checkForm()"/></td>
+            <td><input type="submit" value="登录" id="submit" onclick="checkForm()"/></td>
             <td><input type="reset" value="重置"/></td>
         </tr>
     </table>

@@ -33,7 +33,6 @@
     </bean>
 
     <!--配置dao接口自动扫描包，动态的实现类Dao接口可以注入到Spring容器中-->
-    <!--这一步写完，容器中自动含有Mapper接口-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!--要扫描的dao包-->
