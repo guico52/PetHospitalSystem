@@ -10,16 +10,38 @@ import java.util.List;
  */
 @Mapper
 public interface PetMapper {
-    @Select("select * from pets p,types t, owners o where p.type_id=t.id and p.owner_id=o.id")
+    @Results({
+            @Result(column = "p.id", property = "id"),
+            @Result(column = "p.name", property = "name"),
+            @Result(column = "p.birth_date", property = "birthDate"),
+            @Result(column = "t.id", property = "typeId"),
+            @Result(column = "t.name", property = "typeName"),
+            @Result(column = "o.id", property = "ownerId"),
+            @Result(column = "o.name", property = "ownerName")
+
+    })
+    @Select("select p.id, p.name, p.birth_date, t.id, t.name, o.id, o.name from pets p,types t, owners o where p.type_id=t.id and p.owner_id=o.id")
     List<Pet> selectAll();
 
-    @Select("select * from pets p,types t, owners o where p.type_id=t.id and p.owner_id=o.id and p.id=#{id}")
+    @Results({
+            @Result(column = "p.id", property = "id"),
+            @Result(column = "p.name", property = "name"),
+            @Result(column = "p.birth_date", property = "birthDate"),
+            @Result(column = "t.id", property = "typeId"),
+            @Result(column = "t.name", property = "typeName"),
+            @Result(column = "o.id", property = "ownerId"),
+            @Result(column = "o.name", property = "ownerName")
+
+    })
+    @Select("select p.id, p.name, p.birth_date, t.id, t.name, o.id, o.name from pets p,types t, owners o where p.type_id=t.id and p.owner_id=o.id and p.id=#{id}")
     Pet selectById(int id);
 
-    @Insert("insert into pets(name,type_id,owner_id) values(#{name},#{typeId},#{ownerId})")
+
+    @Insert("insert into pets(name,birth_date,type_id,owner_id) values(#{name},#{birthDate},#{typeId},#{ownerId});" +
+            "")
     int insertPet(Pet pet);
 
-    @Update("update pets set name=#{name},type_id=#{typeId},owner_id=#{ownerId} where id=#{id}")
+    @Update("update pets set name=#{name}, birth_date=#{birthDate},type_id=#{typeId},owner_id=#{ownerId} where id=#{id}")
     int updatePet(Pet pet);
     @Delete("delete from pets where id=#{id}")
     int deleteById(int id);

@@ -1,13 +1,16 @@
 package com.guico.pojo;
 
-public class Vet {
+import java.io.Serializable;
+
+public class Vet implements Serializable {
     private int vetId;
-    private int specId;
     private String vetName;
+    private int specId;
     private String specName;
 
 //    全参构造
-    public Vet(int vetId, int specId, String vetName, String specName) {
+//    参数顺序需要注意
+    public Vet(int vetId,  String vetName, int specId,String specName) {
         this.vetId = vetId;
         this.specId = specId;
         this.vetName = vetName;

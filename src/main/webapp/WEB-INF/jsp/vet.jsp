@@ -14,7 +14,7 @@
 <body>
 
 <%
-    List<Vet> vets = (List<Vet>)request.getAttribute("vets");
+    List<Vet> vets = (List<Vet>) request.getAttribute("vets");
 %>
 <table id="allVetTable" hidden="hidden" >
     <tr>
@@ -22,9 +22,14 @@
         <td>兽医专业</td>
     </tr>
     <%
-    for(Vet vet : vets){
-        out.println("<tr><td>"+vet.getVetName()+"</td><td>"+vet.getSpecName()+"</td></tr>");
-    }
+        for(Vet vet : vets){
+    %>
+    <tr>
+        <td><%=vet.getVetName()%></td>
+        <td><%=vet.getSpecName()%></td>
+    </tr>
+    <%
+        }
     %>
 </table>
 <script>
@@ -41,8 +46,8 @@
         <td id="spec"></td>
     </tr>
 </table>
-<button id="selectVet" value="查询兽医"></button>
-<button id="showTable" value="展示列表"></button>
+<button id="selectVet" >查询兽医</button>
+<button id="showTable" >查看所有</button>
 
 <script>
 // 点击查询兽医后，隐藏兽医列表，显示查询兽医的表单

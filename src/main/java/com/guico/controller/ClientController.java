@@ -1,5 +1,6 @@
 package com.guico.controller;
 
+import com.guico.pojo.Vet;
 import com.guico.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,7 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @Controller
 public class ClientController {
@@ -23,20 +27,29 @@ public class ClientController {
     @Autowired
     private VetMapperImpl vetMapper;
 
+    @RequestMapping("/test")
+    public void test(int id){
+        System.out.println(vetMapper.selectById(id));
+    }
+
 //    兽医业务代码区域
 //    跳转到vet页面
     @RequestMapping("/vet")
-    public ModelAndView vet(){
-        ModelAndView view = new ModelAndView("vet");
-        view.addObject("vets", vetMapper.selectAll());
-        return view;
+    public String  vet(HttpServletRequest request){
+        List<Vet> vets = vetMapper.selectAll();
+        request.setAttribute("vets",vets);
+        for(Vet vet:vets)
+            System.out.println(vet);
+        return "vet";
     }
 //    从请求中获取vetName,根据其获取兽医信息
 //    感觉这个功能在前端可以用ajax实现
     @RequestMapping("/getVetByName")
     @ResponseBody
-    public String vetInfo(String vetName){
-        return vetMapper.selectByName(vetName).getSpecName();
+    public String vetInfo(String vetName) throws UnsupportedEncodingException {
+        Vet vet = vetMapper.selectByName(vetName);
+        System.out.println(vet);
+        return vet.getVetName();
     }
 
 

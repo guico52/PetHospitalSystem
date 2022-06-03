@@ -33,4 +33,12 @@
         <property name="suffix" value=".jsp"/>
         <property name="order" value="0"/>
     </bean>
+    <!--指定使用jackson将集合转换为json传入-->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
 </beans>

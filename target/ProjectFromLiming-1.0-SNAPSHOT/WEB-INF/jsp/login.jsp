@@ -20,7 +20,7 @@
 </head>
 <body>
 <!--登录表单-->
-<form id="loginForm" action="/ProjectFromLiming/checkLogin" method="post" >
+<form id="loginForm" action="/checkLogin" method="post" >
     <table>
         <tr>
             <td>用户名：</td>
