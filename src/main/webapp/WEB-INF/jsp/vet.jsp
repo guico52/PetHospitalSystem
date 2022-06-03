@@ -15,6 +15,7 @@
 
 <%
     List<Vet> vets = (List<Vet>) request.getAttribute("vets");
+    response.setCharacterEncoding("UTF-8");
 %>
 <table id="allVetTable" hidden="hidden" >
     <tr>
@@ -60,14 +61,15 @@
         document.getElementById("allVetTable").hidden = false;
         document.getElementById("selectVetByName").hidden = true;
     }
-//    输入兽医姓名，查询兽医专业，获取参数后显示在spec中
-    document.getElementById("getVetName").oninput = function () {
+//    输入兽医姓名，查询兽医专业，获取参数后转为UTF-8 编码,展示在spec中
+    document.getElementById("getVetName").onblur = function () {
         var vetName = document.getElementById("getVetName").value;
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/getVetByName?vetName="+vetName, true);
-        xhr.send();
+        xhr.open("POST", "/getSpecByVetName", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("vetName=" + vetName);
         xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
+            if (xhr.readyState == 4 && xhr.status == 200) {
                 var spec = document.getElementById("spec");
                 spec.innerHTML = xhr.responseText;
             }

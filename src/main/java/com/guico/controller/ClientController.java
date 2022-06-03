@@ -43,13 +43,15 @@ public class ClientController {
         return "vet";
     }
 //    从请求中获取vetName,根据其获取兽医信息
-//    感觉这个功能在前端可以用ajax实现
-    @RequestMapping("/getVetByName")
+//    感觉这个功能在前端可以用ajax实现，返回的字符串为GBK编码，所以需要转换
+    @RequestMapping("/getSpecByVetName")
     @ResponseBody
-    public String vetInfo(String vetName) throws UnsupportedEncodingException {
+    public String vetInfo(String vetName,HttpServletResponse res) throws UnsupportedEncodingException {
+        res.setCharacterEncoding("UTF-8");
         Vet vet = vetMapper.selectByName(vetName);
-        System.out.println(vet);
-        return vet.getVetName();
+        String name  = vet.getVetName();
+        return name;
+
     }
 
 
