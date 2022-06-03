@@ -15,8 +15,7 @@
 
 <%
     List<Vet> vets = (List<Vet>) request.getAttribute("vets");
-    response.setCharacterEncoding("UTF-8");
-%>
+    %>
 <table id="allVetTable" hidden="hidden" >
     <tr>
         <td>兽医姓名</td>
@@ -45,6 +44,10 @@
     <tr>
         <td>兽医专业</td>
         <td id="spec"></td>
+        <td class="error" id="error" hidden="hidden">请输入正确的姓名</td>
+    </tr>
+    <tr>
+        <td><button id="submitVetName">提交</button></td>
     </tr>
 </table>
 <button id="selectVet" >查询兽医</button>
@@ -61,19 +64,13 @@
         document.getElementById("allVetTable").hidden = false;
         document.getElementById("selectVetByName").hidden = true;
     }
-//    输入兽医姓名，查询兽医专业，获取参数后转为UTF-8 编码,展示在spec中
-    document.getElementById("getVetName").onblur = function () {
+//  点击submitVetName按钮后，提交getVetName的值，获取兽医专业
+    document.getElementById("submitVetName").onclick = function () {
         var vetName = document.getElementById("getVetName").value;
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/getSpecByVetName", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("vetName=" + vetName);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var spec = document.getElementById("spec");
-                spec.innerHTML = xhr.responseText;
-            }
-        }
+        document.cookie = "vetName=" + vetName;
+        <%
+          request.setAttribute("vetName",request.getCookie("vetName"));
+        %>
     }
 </script>
 </body>

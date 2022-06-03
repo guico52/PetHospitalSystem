@@ -46,18 +46,17 @@ public class ClientController {
 //    感觉这个功能在前端可以用ajax实现，返回的字符串为GBK编码，所以需要转换
     @RequestMapping("/getSpecByVetName")
     @ResponseBody
-    public String vetInfo(String vetName,HttpServletResponse res) throws UnsupportedEncodingException {
-        res.setCharacterEncoding("UTF-8");
+    public String vetInfo(HttpServletRequest req,HttpServletResponse res) throws UnsupportedEncodingException {
+        String vetName = req.getParameter("vetName");
+        System.out.println(vetName);
         Vet vet = vetMapper.selectByName(vetName);
-        String name  = vet.getVetName();
-        return name;
-
+        System.out.println(vet);
+        return vet.getVetName();
     }
 
 
 
 //    宠物主人业务区域
-
 //    跳转到petOwner页面
     @RequestMapping("/petOwner")
     public String petOwner(){
