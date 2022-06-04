@@ -15,7 +15,8 @@
 
 <%
     List<Vet> vets = (List<Vet>) request.getAttribute("vets");
-    %>
+%>
+<button id="back">返回</button>
 <table id="allVetTable" hidden="hidden" >
     <tr>
         <td>兽医姓名</td>
@@ -52,8 +53,14 @@
 </table>
 <button id="selectVet" >查询兽医</button>
 <button id="showTable" >查看所有</button>
+<button id="logout">退出登录</button>
 
 <script>
+// 点击返回按钮后，返回client页面
+    document.getElementById("back").onclick = function () {
+        window.location.href = "http://localhost:8080/client";
+    };
+
 // 点击查询兽医后，隐藏兽医列表，显示查询兽医的表单
     document.getElementById("selectVet").onclick = function () {
         document.getElementById("allVetTable").hidden = true;
@@ -66,12 +73,37 @@
     }
 //  点击submitVetName按钮后，提交getVetName的值，获取兽医专业
     document.getElementById("submitVetName").onclick = function () {
-        var vetName = document.getElementById("getVetName").value;
-        document.cookie = "vetName=" + vetName;
-        <%
-          request.setAttribute("vetName",request.getCookie("vetName"));
-        %>
+        var getVetName = document.getElementById("getVetName").value;
+        if(getVetName === ""){
+            document.getElementById("error").hidden = false;
+        }else{
+            document.getElementById("error").hidden = true;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET","/getSpecByVetName?vetName="+getVetName,true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    var spec = xhr.responseText;
+                    spec = window.decodeURIComponent(spec);
+                    document.getElementById("spec").innerHTML = spec;
+                }
+            }
+        }
     }
+//    点击退出登录字体后，发送请求和session中的emp对象，退出登录
+    document.getElementById("logout").onclick = function () {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET","/logout",true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4 && xhr.status === 200){
+                window.location.href = "/login";
+            }
+        }
+    }
+
 </script>
 </body>
 </html>

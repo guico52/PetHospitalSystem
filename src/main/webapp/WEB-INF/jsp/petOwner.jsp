@@ -11,6 +11,13 @@
     <title>Title</title>
 </head>
 <body>
+<button id="back">返回</button>
 
+
+<script>
+    document.getElementById("back").onclick = function () {
+        window.location.href = "/client";
+    }
+</script>
 </body>
 </html>

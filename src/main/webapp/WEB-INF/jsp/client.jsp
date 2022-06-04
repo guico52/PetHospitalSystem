@@ -19,5 +19,12 @@
         <td></td>
     </tr>
 </table>
+<button id="logout">退出登录</button>
+<script>
+    //点击退出登录后，跳转到登录页面
+    document.getElementById("logout").onclick = function () {
+        window.location.href = "/logout";
+    }
+</script>
 </body>
 </html>

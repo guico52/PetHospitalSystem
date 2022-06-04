@@ -10,35 +10,22 @@ import java.util.List;
  */
 @Mapper
 public interface PetMapper {
-    @Results({
-            @Result(column = "p.id", property = "id"),
-            @Result(column = "p.name", property = "name"),
-            @Result(column = "p.birth_date", property = "birthDate"),
-            @Result(column = "t.id", property = "typeId"),
-            @Result(column = "t.name", property = "typeName"),
-            @Result(column = "o.id", property = "ownerId"),
-            @Result(column = "o.name", property = "ownerName")
 
-    })
-    @Select("select p.id, p.name, p.birth_date, t.id, t.name, o.id, o.name from pets p,types t, owners o where p.type_id=t.id and p.owner_id=o.id")
+    @Select("select p.id id, p.name name, p.birth_date birthDate, t.id typeId, t.name typeName, o.id ownerId, o.name ownerName from pets p,types t, owners o where p.type_id=t.id and p.owner_id=o.id")
     List<Pet> selectAll();
 
-    @Results({
-            @Result(column = "p.id", property = "id"),
-            @Result(column = "p.name", property = "name"),
-            @Result(column = "p.birth_date", property = "birthDate"),
-            @Result(column = "t.id", property = "typeId"),
-            @Result(column = "t.name", property = "typeName"),
-            @Result(column = "o.id", property = "ownerId"),
-            @Result(column = "o.name", property = "ownerName")
 
-    })
-    @Select("select p.id, p.name, p.birth_date, t.id, t.name, o.id, o.name from pets p,types t, owners o where p.type_id=t.id and p.owner_id=o.id and p.id=#{id}")
+    @Select("select p.id id, p.name name, p.birth_date birthDate, t.id typeId, t.name typeName, o.id ownerId, o.name ownerName from pets p,types t, owners o where p.type_id=t.id and p.owner_id=o.id and p.id=#{id}")
     Pet selectById(int id);
+
+//    pet的模糊查询
+    @Select("select p.id id, p.name name, p.birth_date birthDate, t.id typeId, t.name typeName, o.id ownerId, o.name ownerName from pets p,types t, owners o where p.type_id=t.id and p.owner_id=o.id and p.name like concat('%',#{name},'%')")
+    List<Pet> selectByName(@Param("name") String name);
 
 
     @Insert("insert into pets(name,birth_date,type_id,owner_id) values(#{name},#{birthDate},#{typeId},#{ownerId});" +
-            "")
+            "insert into types(id,name) values(#{typeId},#{typeName});" +
+            "insert into owners(id,name) values(#{ownerId},#{ownerName});")
     int insertPet(Pet pet);
 
     @Update("update pets set name=#{name}, birth_date=#{birthDate},type_id=#{typeId},owner_id=#{ownerId} where id=#{id}")

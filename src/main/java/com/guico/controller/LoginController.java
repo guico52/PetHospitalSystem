@@ -17,6 +17,12 @@ public class LoginController {
     @Autowired
     private EmpMapperImpl mapper;
 
+//    设置索引页
+    @RequestMapping("/")
+    public String index(){
+        return "login";
+    }
+
 //    返回client
     @RequestMapping("/client")
     public String client(){
@@ -61,5 +67,12 @@ public class LoginController {
                 e.printStackTrace();
             }
         }
+    }
+
+//    用户退出登录
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().removeAttribute("emp");
+        return "login";
     }
 }

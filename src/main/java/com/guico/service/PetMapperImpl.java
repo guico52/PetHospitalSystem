@@ -26,6 +26,10 @@ public class PetMapperImpl implements PetMapper {
         return petMapper.selectById(id);
     }
 
+    public List<Pet> selectByName(String name) {
+        return petMapper.selectByName(name);
+    }
+
     public int insertPet(Pet pet) {
         return petMapper.insertPet(pet);
     }

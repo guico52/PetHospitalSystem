@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Controller
@@ -32,6 +33,7 @@ public class ClientController {
         System.out.println(vetMapper.selectById(id));
     }
 
+
 //    兽医业务代码区域
 //    跳转到vet页面
     @RequestMapping("/vet")
@@ -43,15 +45,20 @@ public class ClientController {
         return "vet";
     }
 //    从请求中获取vetName,根据其获取兽医信息
-//    感觉这个功能在前端可以用ajax实现，返回的字符串为GBK编码，所以需要转换
+//    感觉这个功能在前端可以用ajax实现
     @RequestMapping("/getSpecByVetName")
     @ResponseBody
     public String vetInfo(HttpServletRequest req,HttpServletResponse res) throws UnsupportedEncodingException {
         String vetName = req.getParameter("vetName");
+        URLEncoder.encode(vetName,"utf-8");
         System.out.println(vetName);
         Vet vet = vetMapper.selectByName(vetName);
         System.out.println(vet);
-        return vet.getVetName();
+        String specName = vet.getSpecName();
+        System.out.println(specName);
+        specName = URLEncoder.encode(specName,"utf-8");
+        System.out.println(specName);
+        return specName;
     }
 
 
@@ -62,6 +69,8 @@ public class ClientController {
     public String petOwner(){
         return "petOwner";
     }
+
+
 
 //    宠物业务区域
 //    跳转到pet页面
