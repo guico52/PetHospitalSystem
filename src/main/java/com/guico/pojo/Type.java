@@ -9,6 +9,10 @@ public class Type {
         this.typeName = typeName;
     }
 
+    public Type(String typeName) {
+        this.typeName = typeName;
+    }
+
     public int getTypeId() {
         return typeId;
     }

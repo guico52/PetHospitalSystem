@@ -221,9 +221,23 @@ public void insertPet(HttpServletResponse res, HttpServletRequest req){
             e.printStackTrace();
         }
     }
-
-
 // type区域
+    @RequestMapping("/type")
+    public String type(HttpServletRequest req){
+        return "type";
+    }
+
+    @RequestMapping("/insertType")
+    public void insertType(HttpServletRequest req, HttpServletResponse res){
+        String typeName = req.getParameter("typeName");
+        Type type = new Type(typeName);
+        typeMapper.insertType(type);
+        try {
+            res.getWriter().println("<script>alert('add success');window.location.href='/type';</script>");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
