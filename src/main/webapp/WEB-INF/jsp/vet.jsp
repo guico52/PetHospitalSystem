@@ -80,7 +80,6 @@
             document.getElementById("error").hidden = true;
             var xhr = new XMLHttpRequest();
             xhr.open("GET","/getSpecByVetName?vetName="+getVetName,true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
             xhr.send();
             xhr.onreadystatechange = function () {
                 if(xhr.readyState === 4 && xhr.status === 200){

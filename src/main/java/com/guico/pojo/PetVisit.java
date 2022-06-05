@@ -14,7 +14,13 @@ public class PetVisit {
         this.petId = petId;
     }
 
-//    属性getter和setter
+    public PetVisit(String petVisitDate, String petVisitDescription, int petId) {
+        this.petVisitDate = petVisitDate;
+        this.petVisitDescription = petVisitDescription;
+        this.petId = petId;
+    }
+
+    //    属性getter和setter
     public int getPetVisitId() {
         return petVisitId;
     }

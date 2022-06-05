@@ -16,8 +16,9 @@
     <tr>
         <td><a href="/vet">兽医页面</a></td>
         <td><a href="/pet">宠物界面</a></td>
-        <td></td>
+        <td><a href="/logout">退出</a></td>
     </tr>
 </table>
+</script>
 </body>
 </html>

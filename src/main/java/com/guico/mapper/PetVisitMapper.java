@@ -17,7 +17,7 @@ public interface PetVisitMapper {
     int insertVisit(PetVisit petVisit);
 
     @Select("select * from visits where pet_id = #{petId}")
-    PetVisit selectByPetId(int petId);
+    List<PetVisit> selectByPetId(int petId);
 
     @Update("update visits set pet_id=#{petId}, visit_date=#{visitDate}, vdescription=#{description} where id=#{id}")
     int updateVisit(PetVisit petVisit);

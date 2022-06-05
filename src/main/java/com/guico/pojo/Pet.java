@@ -28,6 +28,25 @@ public class Pet {
         this.ownerName = ownerName;
     }
 
+    public Pet(int id ,String name,String birthDate, Type type, PetOwner petOwner) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.typeId = type.getTypeId();
+        this.typeName = type.getTypeName();
+        this.ownerId = petOwner.getPetOwnerId();
+        this.ownerName = petOwner.getPetOwnerName();
+    }
+    public Pet(String name,String birthDate, Type type, PetOwner petOwner) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.typeId = type.getTypeId();
+        this.typeName = type.getTypeName();
+        this.ownerId = petOwner.getPetOwnerId();
+        this.ownerName = petOwner.getPetOwnerName();
+    }
+
+
     public int getId() {
         return id;
     }

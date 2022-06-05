@@ -33,4 +33,7 @@
     <bean id="vetMapperImpl" class="com.guico.service.VetMapperImpl">
         <property name="vetMapper" ref="vetMapper"/>
     </bean>
+    <bean id="typeMapperImpl" class="com.guico.service.TypeMapperImpl">
+        <property name="typeMapper" ref="typeMapper"/>
+    </bean>
 </beans>

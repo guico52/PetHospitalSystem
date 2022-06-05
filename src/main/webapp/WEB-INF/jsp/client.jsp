@@ -16,15 +16,10 @@
     <tr>
         <td><a href="/vet">兽医页面</a></td>
         <td><a href="/pet">宠物界面</a></td>
-        <td></td>
+        <td><a href="/addType">添加宠物种类</a></td>
+        <td><a href="/logout">退出</a></td>
     </tr>
 </table>
-<button id="logout">退出登录</button>
-<script>
-    //点击退出登录后，跳转到登录页面
-    document.getElementById("logout").onclick = function () {
-        window.location.href = "/logout";
-    }
 </script>
 </body>
 </html>

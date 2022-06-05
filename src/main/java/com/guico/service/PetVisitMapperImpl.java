@@ -28,7 +28,7 @@ public class PetVisitMapperImpl implements PetVisitMapper {
         return petVisitMapper.insertVisit(petVisit);
     }
 
-    public PetVisit selectByPetId(int petId) {
+    public List<PetVisit> selectByPetId(int petId) {
         return petVisitMapper.selectByPetId(petId);
     }
 

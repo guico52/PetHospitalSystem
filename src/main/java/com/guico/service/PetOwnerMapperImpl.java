@@ -25,6 +25,14 @@ public class PetOwnerMapperImpl implements PetOwnerMapper {
         return petOwnerMapper.selectAllPetOwners();
     }
 
+    public List<PetOwner> selectPetOwnerByName(String name) {
+        return petOwnerMapper.selectPetOwnerByName(name);
+    }
+
+    public List<PetOwner> selectPetOwnerByPetName(String name) {
+        return petOwnerMapper.selectPetOwnerByPetName(name);
+    }
+
 
     public int insertPetOwner(PetOwner petOwner) {
         return petOwnerMapper.insertPetOwner(petOwner);

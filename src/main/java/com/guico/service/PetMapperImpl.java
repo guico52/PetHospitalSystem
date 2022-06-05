@@ -30,6 +30,10 @@ public class PetMapperImpl implements PetMapper {
         return petMapper.selectByName(name);
     }
 
+    public List<Pet> selectByOwnerName(String name) {
+        return petMapper.selectByOwnerName(name);
+    }
+
     public int insertPet(Pet pet) {
         return petMapper.insertPet(pet);
     }
