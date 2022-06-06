@@ -13,12 +13,12 @@ public interface TypeMapper {
     @Select("select * from types")
     List<Type> selectAll();
 
-    @Select("select * from types where id = #{id}")
+    @Select("select * from types where id = #{typeId}")
     Type selectById(int id);
 
-    @Insert("insert into types(id, name) values(#{id}, #{name})")
+    @Insert("insert into types(id, name) values(#{typeId}, #{typeName})")
     int insertType(Type type);
 
-    @Delete("delete from types where id = #{id}")
+    @Delete("delete from types where id = #{typeId}")
     int deleteById(int id);
 }

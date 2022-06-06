@@ -7,7 +7,7 @@ public class PetVisit {
     private int petId;
 
 //    全参构造
-    public PetVisit(Integer petVisitId, String petVisitDate, String petVisitDescription, int petId) {
+    public PetVisit(Integer petVisitId,int petId, String petVisitDate, String petVisitDescription) {
         this.petVisitId = petVisitId;
         this.petVisitDate = petVisitDate;
         this.petVisitDescription = petVisitDescription;

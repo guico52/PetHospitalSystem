@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -204,16 +205,20 @@ public void insertPet(HttpServletResponse res, HttpServletRequest req){
     @RequestMapping("/visit")
     public String visit(HttpServletRequest req){
         Pet pet =(Pet) req.getSession().getAttribute("pet");
-        req.getSession().setAttribute("visit",petVisitMapper.selectByPetId(pet.getId()));
+        List<PetOwner> owners = petOwnerMapper.selectAllPetOwners();
+        List<PetVisit> visits = petVisitMapper.selectAll();
+        HttpSession session = req.getSession();
+        session.setAttribute("visits",visits);
+        session.setAttribute("owners",owners);
         return "visit";
     }
 
     @RequestMapping("/insertVisit")
     public void insertVisit( HttpServletRequest req, HttpServletResponse res){
-        int ownerId = Integer.parseInt(req.getParameter("petOwnerName"));
+        int petId = Integer.parseInt(req.getParameter("petId"));
         String visitDate = req.getParameter("petVisitDate");
         String visitDesc = req.getParameter("petVisitDesc");
-        PetVisit visit = new PetVisit(visitDate,visitDesc,ownerId);
+        PetVisit visit = new PetVisit(visitDate,visitDesc,petId);
         petVisitMapper.insertVisit(visit);
         try {
             res.getWriter().println("<script>alert('add success');window.location.href='/visit';</script>");

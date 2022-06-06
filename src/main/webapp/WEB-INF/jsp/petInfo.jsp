@@ -20,7 +20,7 @@
 </head>
 <body>
 <%
-    Pet pet= (Pet)request.getSession().getAttribute("pet");
+    Pet pet= (Pet)session.getAttribute("pet");
     String birthday=pet.getBirthDate();
     birthday=birthday.substring(0,10)+"T"+birthday.substring(11,16);
     pet.setBirthDate(birthday);
@@ -232,7 +232,7 @@
         form.submit();
     }
 //    点击浏览病例按钮，返回病例列表
-    document.getElementById("back").onclick = function () {
+    document.getElementById("visit").onclick = function () {
         window.location.href = "/visit";
     }
 

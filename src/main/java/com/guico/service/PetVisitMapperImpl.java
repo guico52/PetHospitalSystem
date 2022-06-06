@@ -16,7 +16,7 @@ public class PetVisitMapperImpl implements PetVisitMapper {
         this.petVisitMapper = petVisitMapper;
     }
 
-    public List selectAll() {
+    public List<PetVisit> selectAll() {
         return petVisitMapper.selectAll();
     }
 
