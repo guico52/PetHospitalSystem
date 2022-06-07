@@ -9,17 +9,17 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="/css" type="text/css">
 </head>
 <body>
 <h3>爱心宠物诊所系统</h3>
 <table>
-    <tr>
-        <td><a href="/vet">兽医页面</a></td>
-        <td><a href="/pet">宠物界面</a></td>
-        <td><a href="/type">添加宠物种类</a></td>
-        <td><a href="/logout">退出</a></td>
-    </tr>
+    <ul>
+        <li><a href="/vet">兽医页面</a></li>
+        <li><a href="/pet">宠物界面</a></li>
+        <li><a href="/type">添加宠物种类</a></li>
+        <li><a href="/logout">退出</a></li>
+    </ul>
 </table>
-</script>
 </body>
 </html>

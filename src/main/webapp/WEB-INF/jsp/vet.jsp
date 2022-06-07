@@ -51,9 +51,9 @@
         <td><button id="submitVetName">提交</button></td>
     </tr>
 </table>
-<button id="selectVet" >查询兽医</button>
-<button id="showTable" >查看所有</button>
-<button id="logout">退出登录</button>
+<button id="selectVet" class="button" >查询兽医</button>
+<button id="showTable" class="button" >查看所有</button>
+<button id="logout" class="button">退出登录</button>
 
 <script>
 // 点击返回按钮后，返回client页面

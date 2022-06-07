@@ -15,9 +15,10 @@
 </head>
 <body>
 <%
-    Pet pet = (Pet) request.getSession().getAttribute("pet");
-    List<PetVisit> visits = (List<PetVisit>) request.getSession().getAttribute("visit");
-    List<PetOwner> owners = (List<PetOwner>) request.getSession().getAttribute("owner");
+    Pet pet = (Pet) session.getAttribute("pet");
+    System.out.println(pet);
+    List<PetVisit> visits = (List<PetVisit>) session.getAttribute("visits");
+    List<PetOwner> owners = (List<PetOwner>) session.getAttribute("owners");
 %>
 <div id="msg" hidden="hidden">
     <table>
@@ -57,27 +58,20 @@
 
 <form id="addVisitForm" action="/insertVisit">
     <table>
+        <td><input type="text" id="petId" name="petId" value="<%=pet.getId()%>" hidden="hidden"></td>
         <tr>
             <td>宠物名称</td>
-            <td><input type="text" id="petName" name="petName"></td>
+            <td><input type="text" id="petName" name="petName" value="<%=pet.getName()%>" disabled="disabled"></td>
         </tr>
         <tr>
             <td>主人名称</td>
             <td>
-                <select id="petOwnerName" name="peOwnerName">
-                    <%
-                        for(PetOwner owner:owners){
-                    %>
-                    <option value="<%=owner.getPetOwnerId()%>"><%=owner.getPetOwnerName()%></option>
-                    <%
-                        }
-                    %>
-                </select>
+                <input type="text" id="ownerName" name="ownerName" value="<%=pet.getOwnerName()%>" disabled="disabled">
             </td>
         </tr>
         <tr>
             <td>宠物类型</td>
-            <td><input type="text" id="petTypeName" name="petTypeName"></td>
+            <td><input type="text" id="petTypeName" name="petTypeName" disabled="disabled" value="<%=pet.getTypeName()%>"></td>
         </tr>
         <tr>
             <td>诊断时间</td>
@@ -89,9 +83,26 @@
         </tr>
     </table>
     <input type="submit" value="增加">
-    <button id="cancel">返回</button>
+    <button type="button" id="cancel">返回</button>
     <input type="reset" value="清空">
 </form>
+
+<table>
+    <tr>
+        <td>诊断时间</td>
+        <td>备注</td>
+    </tr>
+    <%
+        for(PetVisit visit:visits){
+    %>
+    <tr>
+        <td><%=visit.getPetVisitDate()%></td>
+        <td><%=visit.getPetVisitDescription()%></td>
+    </tr>
+    <%
+        }
+    %>
+</table>
 
 <script>
     //点击添加病例按钮，隐藏添加病例表单，显示添加病例表单
@@ -100,10 +111,9 @@
         document.getElementById("addVisitForm").hidden = false;
     };
 
-    //点击返回按钮，隐藏添加病例表单，显示添加病例表单
+    //点击返回按钮，返回到petInfo.jsp
     document.getElementById("cancel").onclick = function () {
-        document.getElementById("msg").hidden = false;
-        document.getElementById("addVisitForm").hidden = true;
+        window.location.href = "/petInfo?petId=<%=pet.getId()%>";
     };
 </script>
 

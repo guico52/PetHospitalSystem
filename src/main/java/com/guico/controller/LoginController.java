@@ -25,7 +25,7 @@ public class LoginController {
 
 //    返回client
     @RequestMapping("/client")
-    public String client(){
+    public String client(HttpServletResponse resp, HttpServletRequest req){
         return "client";
     }
 

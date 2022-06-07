@@ -15,16 +15,18 @@
     <mvc:default-servlet-handler/>
     <!--扫描controller包-->
     <context:component-scan base-package="com.guico.controller"/>
+    <!--放行css文件-->
+    <mvc:resources mapping="/css/**" location="../webapp/WEB-INF/css/"/>
 
     <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/html"/>
+        <property name="templateLoaderPath" value="/WEB-INF/css"/>
     </bean>
     <!--html视图处理器-->
-    <bean id="htmlViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+    <bean id="cssResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
         <property name="contentType" value="text/html;charset=utf-8"/>
         <property name="cache" value="true"/>
-        <property name="suffix" value=".html"/>
+        <property name="suffix" value=".css"/>
         <property name="order" value="0"/>
     </bean>
     <!--jsp视图处理器-->
