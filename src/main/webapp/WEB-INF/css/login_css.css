@@ -9,6 +9,7 @@ body{
     /* 弹性布局 居中 */
     display: flex;
     justify-content: center;
+    /**/
     align-items: center;
     /* 渐变背景 */
     background: linear-gradient(200deg,#e3c5eb,#a9c1ed);

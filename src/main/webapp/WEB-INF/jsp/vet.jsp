@@ -53,7 +53,6 @@
 </table>
 <button id="selectVet" class="button" >查询兽医</button>
 <button id="showTable" class="button" >查看所有</button>
-<button id="logout" class="button">退出登录</button>
 
 <script>
 // 点击返回按钮后，返回client页面
@@ -87,18 +86,6 @@
                     spec = window.decodeURIComponent(spec);
                     document.getElementById("spec").innerHTML = spec;
                 }
-            }
-        }
-    }
-//    点击退出登录字体后，发送请求和session中的emp对象，退出登录
-    document.getElementById("logout").onclick = function () {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET","/logout",true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-        xhr.send();
-        xhr.onreadystatechange = function () {
-            if(xhr.readyState === 4 && xhr.status === 200){
-                window.location.href = "/login";
             }
         }
     }
