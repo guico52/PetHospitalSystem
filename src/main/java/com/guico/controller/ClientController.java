@@ -36,7 +36,7 @@ public class ClientController {
     private void checkUser(HttpServletRequest  req,HttpServletResponse res){
         if(req.getSession().getAttribute("emp")==null) {
             try {
-                res.getWriter().println("<script>alert('请先登录！');window.location.href='/login'</script>");
+                res.getWriter().println("<script>alert('please login first!');window.location.href='/login'</script>");
             } catch (IOException e) {
                 e.printStackTrace();
             }

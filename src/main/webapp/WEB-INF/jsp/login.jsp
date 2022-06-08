@@ -8,68 +8,129 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>登录</title>
     <style>
-        .error {
-            color: red;
+        *{
+            /* 初始化 */
+            margin: 0;
+            padding: 0;
         }
+        body{
+            /* 100%窗口高度 */
+            height: 100vh;
+            /* 弹性布局 居中 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 渐变背景 */
+            background: linear-gradient(200deg,#e3c5eb,#a9c1ed);
+            /* 溢出隐藏 */
+            overflow: hidden;
+        }
+        .container{
+            /* 相对定位 */
+            position: relative;
+            z-index: 1;
+            background-color: #fff;
+            border-radius: 15px;
+            /* 弹性布局 垂直排列 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 350px;
+            height: 500px;
+            /* 阴影 */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .container .tit{
+            font-size: 26px;
+            margin: 65px auto 70px auto;
+        }
+        .container input{
+            width: 280px;
+            height: 30px;
+            text-indent: 8px;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            outline: none;
+            margin: 12px auto;
+        }
+        .container button{
+            width: 280px;
+            height: 40px;
+            margin: 35px auto 40px auto;
+            border: none;
+            background: linear-gradient(-200deg,#fac0e7,#aac2ee);
+            color: #fff;
+            font-weight: bold;
+            letter-spacing: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            /* 动画过渡 */
+            transition: 0.5s;
+        }
+        .container button:hover{
+            background: linear-gradient(-200deg,#aac2ee,#fac0e7);
+            background-position-x: -280px;
+        }
+        .container span{
+            font-size: 14px;
+        }
+        .container a{
+            color: plum;
+            text-decoration: none;
+        }
+        .error{
+            color: red;
+            font-size: 12px;
+            margin: 0 auto;
+        }
+
+
     </style>
 </head>
-<body>
-<!--登录表单-->
-<form id="loginForm" action="/checkLogin" method="post" >
-    <table>
-        <tr>
-            <td>用户名：</td>
-            <td><input type="text" name="username" id="username" onblur="checkUsername()"/></td>
-            <td class="error" id="usernameError" hidden="hidden">请输入用户名</td>
-        </tr>
-        <tr>
-            <td>密码：</td>
-            <td><input type="password" name="password" id="password" onblur="checkPassword()"/></td>
-            <td class="error" id="passwordError" hidden="hidden">请输入密码</td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="登录" id="submit" onclick="checkForm()"/></td>
-            <td><input type="reset" value="重置"/></td>
-        </tr>
-    </table>
-</form>
-<script>
-    //检查用户名是否为空
-    function checkUsername() {
-        var username = document.getElementById("username").value;
-        if (username === "" || username === null) {
-            document.getElementById("usernameError").hidden = false;
-            return false;
-        } else {
-            document.getElementById("usernameError").hidden = true;
-            return true;
-        }
-    }
-    //    检查密码是否为空
-    function checkPassword() {
-        var password = document.getElementById("password").value;
-        if (password === "" || password === null) {
-            document.getElementById("passwordError").hidden = false;
-            return false;
-        } else {
-            document.getElementById("passwordError").hidden = true;
-            return true;
-        }
-    }
-    //    检查表单,如果表单不合法则不提交
-    function checkForm() {
-        if (checkUsername() && checkPassword()) {
-            document.getElementById("passwordError").submit();
-        } else {
-            alter("请输入用户名和密码");
-        }
-    }
 
+<body>
+<div class="container">
+    <div class="tit">登录</div>
+    <input type="text" placeholder="账号" id="username">
+    <input type="password" placeholder="密码" id="password">
+    <button id="login">登录</button>
+    <span class="error"></span>
+</div>
+
+<script>
+    //点击登录按钮后，检查表单是否合法，生产一个提交到/checkLogin的form表单，并且提交
+    document.getElementById("login").onclick=function (){
+        var username=document.getElementById("username").value;
+        var password=document.getElementById("password").value;
+        if(username===""||password===""){
+            document.querySelector(".error").innerHTML="账号或密码不能为空";
+        } else{
+            var form=document.createElement("form");
+            form.action="/checkLogin";
+            form.method="post";
+            var input1=document.createElement("input");
+            input1.type="hidden";
+            input1.name="username";
+            input1.value=username;
+            var input2=document.createElement("input");
+            input2.type="hidden";
+            input2.name="password";
+            input2.value=password;
+            form.appendChild(input1);
+            form.appendChild(input2);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
 </script>
 </body>
 </html>

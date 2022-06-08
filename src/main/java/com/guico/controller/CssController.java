@@ -5,8 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CssController {
-    @RequestMapping("/css")
-    public String css(){
-        return "total";
+
+    @RequestMapping("/client_css")
+    public String client(){
+        return "client_css";
+    }
+
+    @RequestMapping("/login_css")
+    public String login(){
+        return "login_css";
     }
 }

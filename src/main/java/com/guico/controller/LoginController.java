@@ -5,7 +5,6 @@ import com.guico.service.EmpMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +25,15 @@ public class LoginController {
 //    返回client
     @RequestMapping("/client")
     public String client(HttpServletResponse resp, HttpServletRequest req){
+        if(req.getSession().getAttribute("emp") == null){
+            try {
+                System.out.println("未登录");
+                resp.getWriter().println("<script>alert('please login first!');window.location.href='/login';</script>");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("已登录,返回client");
         return "client";
     }
 
@@ -43,6 +51,7 @@ public class LoginController {
     public void checkLogin(HttpServletRequest request, HttpServletResponse response){
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        System.out.println("username: " + username + " password: " + password);
 
 //        检查用户名和密码是否合法，合法则跳转到Client页面，不合法alter提示用户名或密码错误，异常使用try catch捕获
         if(mapper.checkEmpLogin(username,password)){
