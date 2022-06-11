@@ -28,7 +28,7 @@ public class LoginController {
         if(req.getSession().getAttribute("emp") == null){
             try {
                 System.out.println("未登录");
-                resp.getWriter().println("<script>alert('please login first!');window.location.href='/login';</script>");
+                resp.sendRedirect("/login");
             } catch (IOException e) {
                 e.printStackTrace();
             }

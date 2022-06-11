@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/vet_css.css" rel="stylesheet">
+</head>
+<body>
+<input type="button" id="back-button">
+<label for="back-button" class="back-button"><i class="fa fa-arrow-left" aria-hidden="true"><a href="/client"></a></i></label>
+
+<div class="search-box">
+    <form action="/selectVets">
+        <h3>查找兽医</h3>
+        <input type="text" name="vetName" id="vetName" placeholder="兽医姓名">
+        <select name="vetSpec" id="vetSpec">
+            <option value="" disabled hidden selected>兽医专业</option>
+            <option value="1">动物护理</option>
+        </select>
+        <input id="select-button" type="submit" value="查找">
+    </form>
+</div>
+</body>
+</html>

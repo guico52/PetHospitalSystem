@@ -22,7 +22,7 @@
 </label>
 <div class="con">
     <h1>欢迎来到宠物医院管理系统</h1>
-    <h3>请点击左上角的按钮继续</h3>
+    <h3>请点击右上角的按钮继续</h3>
 </div>
 <div class="wrapper">
     <ul class="menu">

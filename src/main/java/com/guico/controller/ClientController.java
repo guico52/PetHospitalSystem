@@ -1,5 +1,6 @@
 package com.guico.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.guico.pojo.*;
@@ -36,7 +37,8 @@ public class ClientController {
     private void checkUser(HttpServletRequest  req,HttpServletResponse res){
         if(req.getSession().getAttribute("emp")==null) {
             try {
-                res.getWriter().println("<script>alert('please login first!');window.location.href='/login'</script>");
+                System.out.println("awful user");
+                res.sendRedirect("/login");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -54,30 +56,35 @@ public class ClientController {
     @RequestMapping("/vet")
     public String  vet(HttpServletRequest request,HttpServletResponse resp){
         checkUser(request,resp);
-        List<Vet> vets = vetMapper.selectAll();
-        request.setAttribute("vets",vets);
-        for(Vet vet:vets)
-            System.out.println(vet);
+        List<Spec> specs = specMapper.selectAll();
+        request.setAttribute("specs",specs);
+        System.out.println(specs);
         return "vet";
     }
-//    从请求中获取vetName,根据其获取兽医信息
-//    感觉这个功能在前端可以用ajax实现
-    @RequestMapping("/getSpecByVetName")
-    @ResponseBody
-    public String vetInfo(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
-        checkUser(req,resp);
-        String vetName = req.getParameter("vetName");
-        URLEncoder.encode(vetName,"utf-8");
-        System.out.println(vetName);
-        Vet vet = vetMapper.selectByName(vetName);
-        System.out.println(vet);
-        String specName = vet.getSpecName();
-        System.out.println(specName);
-        specName = URLEncoder.encode(specName,"utf-8");
-        System.out.println(specName);
-        return specName;
-    }
 
+//
+    @RequestMapping("/selectVets")
+    public String selectVets(HttpServletRequest req){
+        String name = req.getParameter("vetName");
+        String spec = req.getParameter("vetSpec");
+        System.out.println(name+" "+spec);
+        List<Vet> res;
+        if (name.equals("")&&spec!=null){
+            res = vetMapper.selectVetBySpecId(Integer.parseInt(spec));
+            System.out.println("select by spec");
+        } else if(!name.equals("")&&spec==null){
+            res = vetMapper.selectByName(name);
+            System.out.println("select by name");
+        } else if(!name.equals("")&&spec!=null){
+            res = vetMapper.selectVetBySpecAndName(Integer.parseInt(spec), name);
+            System.out.println("select by spec and name");
+        } else {
+            res = vetMapper.selectAll();
+        }
+        req.setAttribute("res",res);
+        System.out.println(res);
+        return "vetRes";
+    }
 
 
 //    宠物业务区域

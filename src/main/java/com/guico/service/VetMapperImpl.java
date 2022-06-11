@@ -24,7 +24,7 @@ public class VetMapperImpl implements VetMapper {
         return vetMapper.selectById(id);
     }
 
-    public Vet selectByName(String name) {
+    public List<Vet> selectByName(String name) {
         return vetMapper.selectByName(name);
     }
 
@@ -40,11 +40,16 @@ public class VetMapperImpl implements VetMapper {
         return vetMapper.updateVet(vet);
     }
 
-    public ArrayList<Vet> selectVetBySpecId(int id) {
+    public List<Vet> selectVetBySpecId(int id) {
         return vetMapper.selectVetBySpecId(id);
     }
 
-    public ArrayList<Vet> selectVetBySpecName(String name) {
+    public List<Vet> selectVetBySpecName(String name) {
         return vetMapper.selectVetBySpecName(name);
+    }
+
+    @Override
+    public List<Vet> selectVetBySpecAndName(int id, String name) {
+        return vetMapper.selectVetBySpecAndName(id,name);
     }
 }

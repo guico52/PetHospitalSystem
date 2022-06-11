@@ -16,8 +16,8 @@ public interface VetMapper {
     @Select("select v.id vetId, v.name vetName, s.id specId, s.name specName from vets v, specialties s, vet_specialties vs where v.id=vs.vet_id and s.id=vs.specialty_id and v.id=#{id}")
     Vet selectById(int id);
 
-    @Select("select v.id vetId, v.name vetName, s.id specId, s.name specName from vets v, specialties s, vet_specialties vs where v.id=vs.vet_id and s.id=vs.specialty_id and v.name=#{vetName}")
-    Vet selectByName(@Param("vetName") String name);
+    @Select("select v.id vetId, v.name vetName, s.id specId, s.name specName from vets v, specialties s, vet_specialties vs where v.id=vs.vet_id and s.id=vs.specialty_id and v.name like CONCAT('%',#{vetName}, '%')")
+    List<Vet> selectByName(@Param("vetName") String name);
 
     @Delete("delete from vets where id=#{vetID}")
     int deleteById(int id);
@@ -33,9 +33,13 @@ public interface VetMapper {
 
 
     @Select("select v.id vetId, v.name vetName, s.id specId, s.name specName from vets v, specialties s, vet_specialties vs where v.id=vs.vet_id and s.id=vs.specialty_id and s.id = #{id}")
-    ArrayList<Vet> selectVetBySpecId(int id);
+    List<Vet> selectVetBySpecId(int id);
 
 
-    @Select("select v.id vetId, v.name vetName, s.id specId, s.name specName from vets v, specialties s, vet_specialties vs where v.id=vs.vet_id and s.id=vs.specialty_id and s.name = #{name}")
-    ArrayList<Vet> selectVetBySpecName(String name);
+    @Select("select v.id vetId, v.name vetName, s.id specId, s.name specName from vets v, specialties s, vet_specialties vs where v.id=vs.vet_id and s.id=vs.specialty_id and s.name like #{name}")
+    List<Vet> selectVetBySpecName(String name);
+
+    @Select("select v.id vetId, v.name vetName, s.id specId, s.name specName from vets v, specialties s, vet_specialties vs where v.id=vs.vet_id and s.id=vs.specialty_id and s.id = #{id} and v.name like CONCAT('%',#{name},'%')")
+    List<Vet> selectVetBySpecAndName(@Param("id") int id,@Param("name") String name);
+
 }

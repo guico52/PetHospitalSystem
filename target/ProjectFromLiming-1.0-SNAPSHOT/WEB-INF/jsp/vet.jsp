@@ -1,95 +1,49 @@
 <%@ page import="com.guico.pojo.Vet" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.guico.pojo.Spec" %>
+<%--
   Created by IntelliJ IDEA.
   User: guico
   Date: 2022/6/2
   Time: 13:07
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/vet_css" rel="stylesheet">
 </head>
 <body>
-
 <%
-    List<Vet> vets = (List<Vet>) request.getAttribute("vets");
+    List<Spec> specs = (List<Spec>) request.getAttribute("specs");
 %>
-<button id="back">返回</button>
-<table id="allVetTable" hidden="hidden" >
-    <tr>
-        <td>兽医姓名</td>
-        <td>兽医专业</td>
-    </tr>
-    <%
-        for(Vet vet : vets){
-    %>
-    <tr>
-        <td><%=vet.getVetName()%></td>
-        <td><%=vet.getSpecName()%></td>
-    </tr>
-    <%
-        }
-    %>
-</table>
-<script>
-    <%--先不要让allVetTable隐藏--%>
-    document.getElementById("allVetTable").hidden = false;
-</script>
-<table id="selectVetByName" hidden="hidden">
-    <tr>
-        <td>兽医姓名</td>
-        <td><input type="text" id="getVetName"></td>
-    </tr>
-    <tr>
-        <td>兽医专业</td>
-        <td id="spec"></td>
-        <td class="error" id="error" hidden="hidden">请输入正确的姓名</td>
-    </tr>
-    <tr>
-        <td><button id="submitVetName">提交</button></td>
-    </tr>
-</table>
-<button id="selectVet" class="button" >查询兽医</button>
-<button id="showTable" class="button" >查看所有</button>
+<button id="back-button"></button>
+<label for="back-button" class="back-button"><i class="fa fa-arrow-left" aria-hidden="true"></i></label>
 
+<div class="search-box">
+    <form action="/selectVets">
+        <h3>查找兽医</h3>
+        <input type="text" name="vetName" id="vetName" placeholder="兽医姓名">
+        <select name="vetSpec" id="vetSpec">
+            <option value="" disabled hidden selected>兽医专业</option>
+            <%--循环specs，添加下拉框选项--%>
+            <% for (Spec spec : specs) { %>
+            <option value="<%= spec.getSpecId() %>"><%= spec.getSpecName() %></option>
+            <% } %>
+        </select>
+        <input id="select-button" type="submit" value="查找">
+    </form>
+</div>
 <script>
-// 点击返回按钮后，返回client页面
-    document.getElementById("back").onclick = function () {
-        window.location.href = "http://localhost:8080/client";
+    //点击返回按钮，返回上一页，并不能通过历史返回
+    document.getElementById("back-button").onclick = function () {
+        history.back();
     };
-
-// 点击查询兽医后，隐藏兽医列表，显示查询兽医的表单
-    document.getElementById("selectVet").onclick = function () {
-        document.getElementById("allVetTable").hidden = true;
-        document.getElementById("selectVetByName").hidden = false;
-    }
-//  点击展示列表后，隐藏查询兽医的表单，显示兽医列表
-    document.getElementById("showTable").onclick = function () {
-        document.getElementById("allVetTable").hidden = false;
-        document.getElementById("selectVetByName").hidden = true;
-    }
-//  点击submitVetName按钮后，提交getVetName的值，获取兽医专业
-    document.getElementById("submitVetName").onclick = function () {
-        var getVetName = document.getElementById("getVetName").value;
-        if(getVetName === ""){
-            document.getElementById("error").hidden = false;
-        }else{
-            document.getElementById("error").hidden = true;
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET","/getSpecByVetName?vetName="+getVetName,true);
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                if(xhr.readyState === 4 && xhr.status === 200){
-                    var spec = xhr.responseText;
-                    spec = window.decodeURIComponent(spec);
-                    document.getElementById("spec").innerHTML = spec;
-                }
-            }
-        }
-    }
-
 </script>
 </body>
 </html>
