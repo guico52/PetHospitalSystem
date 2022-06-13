@@ -1,16 +1,13 @@
-﻿<!DOCTYPE html>
+﻿
 <html>
 <head>
     <title>Title</title>
-    <style>
-        .error {color: #FF0000;}
-    </style>
-    <link href="../css/pet_css.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/pet_css.css">
 </head>
 <body>
 <input type="checkbox" id="back-btn"/>
 <label for="back-btn" class="back-btn">返回</label>
-<div class="input-box" id="input-box" hidden="hidden">
+<div class="input-box" id="input-box">
     <h3>宠物查询</h3>
     <input type="text" id="petName" placeholder="宠物名称">
     <input type="text" id="ownerName" placeholder="主人名称">
@@ -19,41 +16,38 @@
     <p class="error" id="inputError"></p>
 </div>
 
-<div class="show-box" id="show-box" hidden="hidden">
+<div class="show-box" id="show-box">
     <table class="show-table" id="showTable">
         <thead>
-            <tr>
-                <td> <h3>宠物名称</h3> </td>
-                <td> <h3>主人姓名</h3> </td>
-            </tr>
+        <tr>
+            <td> <h3>宠物名称</h3> </td>
+            <td> <h3>主人姓名</h3> </td>
+        </tr>
         </thead>
         <tbody id="showTableBody">
 
         </tbody>
+        <tfoot>
+        <tr><td><button id="select-again">重新查询</button></td></tr>
 
+        </tfoot>
     </table>
-    <button id="select-again">重新查询</button>
+
 </div>
-
 <script>
-    document.getElementById("input-box").hidden = false;
 
-    document.getElementById("select-again").onclick = function () {
-        document.getElementById("show-box").style.hidden = true;
-        document.getElementById("input-box").style.display = false;
-    };
-    document.getElementById("input-box").hidden = true;
-    document.getElementById("back").onclick = function () {
-        window.history.back();
+
+    document.getElementById("back-btn").onclick = function () {
+        window.location.href = "/client";
     }
 
     //    点击selectByPetName按钮后，发送请求，获取数据
     document.getElementById("selectByPetName").onclick = function () {
-        document.getElementById("show-box").style.clipPath = "circle(75% at center)";
         var petName = document.getElementById("petName").value;
-        //判断是否为空，如果为空，则提示用户
+        document.getElementById("inputError").innerHTML = "";
+        //判断是否为空
         if (petName === "") {
-            document.getElementById("inputError").innerHTML = "请输入宠物名称";
+            document.getElementById("inputError").innerHTML = "宠物名称不能为空";
             return;
         }
         var url = "/selectByPetName?petName=" + petName;
@@ -64,41 +58,7 @@
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var result = xhr.responseText;
                 var json = JSON.parse(result);
-                var showTableBody = document.getElementById("showTableBody");
-                for (var i = 0; i < json.length; i++) {
-                    var tr = document.createElement("tr");
-                    var td1 = document.createElement("td");
-                    var td2 = document.createElement("td");
-                    td1.innerHTML = "<a href=/petInfo?petId="+json[i].id+">"+json[i].name+"</a>";
-                    td2.innerHTML = "<a href=/ownerInfo?ownerId="+json[i].ownerId+">"+json[i].ownerName+"</a>";
-                    tr.appendChild(td1);
-                    tr.appendChild(td2);
-                    showTableBody.appendChild(tr);
-                }
-                document.getElementById("showTable").hidden = false;
-                document.getElementById("inputTable").hidden = true;
-            }
-        }
-        xhr.send();
-    }
-
-    //    点击selectByOwnerName按钮后，发送请求，获取数据
-    document.getElementById("selectByOwnerName").onclick = function () {
-        var ownerName = document.getElementById("ownerName").value;
-        //判断是否为空
-        if (ownerName === "") {
-            document.getElementById("inputError").innerHTML = "请输入主人名称";
-            return;
-        }
-        var url = "/selectByOwnerName?ownerName=" + ownerName;
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var result = xhr.responseText;
-                var json = JSON.parse(result);
-                var showTable = document.getElementById("showTable");
+                var showTable = document.getElementById("showTableBody");
                 for (var i = 0; i < json.length; i++) {
                     var tr = document.createElement("tr");
                     var td1 = document.createElement("td");
@@ -109,16 +69,49 @@
                     tr.appendChild(td2);
                     showTable.appendChild(tr);
                 }
-                document.getElementById("showTable").hidden = false;
-                document.getElementById("inputTable").hidden = true;
+                document.getElementById("show-box").style.clipPath = "circle(75%)";
+            }
+        }
+        xhr.send();
+    }
+
+    //    点击selectByOwnerName按钮后，发送请求，获取数据
+    document.getElementById("selectByOwnerName").onclick = function () {
+        var ownerName = document.getElementById("ownerName").value;
+        document.getElementById("inputError").innerHTML = "";
+        //判断是否为空
+        if (ownerName === "") {
+            document.getElementById("inputError").innerHTML = "主人姓名不能为空";
+            return;
+        }
+        var url = "/selectByOwnerName?ownerName=" + ownerName;
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var result = xhr.responseText;
+                var json = JSON.parse(result);
+                var showTable = document.getElementById("showTableBody");
+                for (var i = 0; i < json.length; i++) {
+                    var tr = document.createElement("tr");
+                    var td1 = document.createElement("td");
+                    var td2 = document.createElement("td");
+                    td1.innerHTML = "<a href=/petInfo?petId="+json[i].id+">"+json[i].name+"</a>";
+                    td2.innerHTML = "<a href=/ownerInfo?ownerId="+json[i].ownerId+">"+json[i].ownerName+"</a>";
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    showTable.appendChild(tr);
+                }
+                document.getElementById("show-box").style.clipPath = "circle(75%)";
             }
         }
         xhr.send();
     }
     //    点击selectAgain按钮后，重新显示inputTable
-    document.getElementById("selectAgain").onclick = function () {
-        document.getElementById("inputTable").hidden = false;
-        document.getElementById("showTable").hidden = true;
+    document.getElementById("select-again").onclick = function () {
+        document.getElementById("showTableBody").innerHTML = "";
+        document.getElementById("show-box").style.clipPath = "circle(0%)";
     }
 </script>
 </body>

@@ -42,7 +42,7 @@ body{
     left: 40%;
     top: 20%;
     width: 300px;
-    height: 45%;
+    height: 55%;
     background: #fff;
     border-radius: 20px;
 }
@@ -61,6 +61,7 @@ body{
     width: 200px;
     height: 30px;
     border:none;
+    text-align: center;
     border-bottom: 1px solid #ddd;
     margin: 12px auto;
 }
@@ -85,28 +86,35 @@ body{
 
 .input-box .error{
     position: relative;
+    color: red;
     top:40px;
-    left: 100px;
-    width: 100px;
+    left: 50px;
+    width: 200px;
     text-align: center;
     border: none;
 }
 
-.show-box{
 
+.show-box{
+    position: fixed;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    right: 0;
+    background: linear-gradient(-90deg,#ffeb3b,#03a9f4);
+    clip-path: circle(0px at 50% 60%);
+    transition: all 0.3s ease-in-out;
 }
 
-.show-box{
+.show-table{
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 400px;
     height: 300px;
-    top: 20%;
     left: 35%;
-    right: -10%;
+    top: 20%;
     background: #fff;
+
     border-radius: 20px;
 }
 
@@ -145,15 +153,27 @@ body{
     text-align: center;
 }
 
+.show-table tfoot{
+    width: 200px;
+}
+
+.show-table tfoot tr{
+    width: 200px;
+}
+
+.show-table tfoot tr td{
+    width: 200px;
+    align-items: center;
+}
 
 
 
 
 #select-again{
-    position: absolute;
+    position: relative;
     top:85%;
-    left:40%;
-    background: linear-gradient(200deg,#e3c5eb,#a9c1ed);
+    left:70%;
+    background: linear-gradient(-90deg,#ffeb3b,#03a9f4);
     width: 100px;
     height: 30px;
     text-align: center;
@@ -163,14 +183,4 @@ body{
 }
 
 
-.select-again{
-    display: block;
-    background: linear-gradient(200deg,#e3c5eb,#a9c1ed);
-    width: 100px;
-    height: 30px;
-    text-align: center;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
 

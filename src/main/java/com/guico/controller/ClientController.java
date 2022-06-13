@@ -99,8 +99,11 @@ public class ClientController {
     @ResponseBody
     public String petInfo(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, UnsupportedEncodingException {
         checkUser(req,resp);
+        System.out.println("select pet by petName");
         String petName = req.getParameter("petName");
+        System.out.println(petName);
         List<Pet> pets = petMapper.selectByName(petName);
+        System.out.println(pets);
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(pets);
         System.out.println(json);
@@ -112,6 +115,7 @@ public class ClientController {
     @ResponseBody
     public String  selectByOwnerName(HttpServletRequest req,HttpServletResponse resp) throws UnsupportedEncodingException, JsonProcessingException {
         checkUser(req,resp);
+        System.out.println("select pet by ownerName");
         String petOwnerName = req.getParameter("ownerName");
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println(petOwnerName);

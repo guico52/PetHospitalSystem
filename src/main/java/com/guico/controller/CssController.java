@@ -26,6 +26,11 @@ public class CssController {
         return "vetRes_css";
     }
 
+    @RequestMapping("/pet_css")
+    public String pet(){
+        return "pet_css";
+    }
+
     @RequestMapping("/test_css")
     public String test(){
         return "test_css";
