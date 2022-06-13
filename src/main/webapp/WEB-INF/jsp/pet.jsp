@@ -37,13 +37,11 @@
         </tbody>
         <tfoot>
         <tr><td><button id="select-again">重新查询</button></td></tr>
-
         </tfoot>
     </table>
 
 </div>
 <script>
-
 
     document.getElementById("back-btn").onclick = function () {
         window.location.href = "/client";

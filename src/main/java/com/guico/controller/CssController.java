@@ -35,4 +35,14 @@ public class CssController {
     public String test(){
         return "test_css";
     }
+
+    @RequestMapping("/petInfo_css")
+    public String petInfo(){
+        return "petInfo_css";
+    }
+
+    @RequestMapping("/ownerInfo_css")
+    public String ownerInfo(){
+        return "ownerInfo_css";
+    }
 }

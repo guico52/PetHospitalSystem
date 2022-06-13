@@ -1,0 +1,185 @@
+﻿<html>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/petInfo_css.css">
+</head>
+<body>
+<div class="msg-box">
+    <h3>宠物信息</h3>
+    <div class="petName-box">
+        <label for="petName">宠物姓名</label>
+        <input type="text" id="petName" name="petName">
+    </div>
+    <div class="petType-box">
+        <label for="petType">宠物类型</label>
+        <select name="petType" id="petType">
+            <option value="dog">狗</option>
+            <option value="cat">猫</option>
+            <option value="bird">鸟</option>
+            <option value="fish">鱼</option>
+        </select>
+    </div>
+    <div class="petBirthDate-box">
+        <label for="petBirthDate">宠物年龄</label>
+        <input type="datetime-local" id="petBirthDate" name="petBirthDate">
+    </div>
+    <div class="petOwnerName-box">
+        <label for="petOwnerName">宠物主人</label>
+        <select name="petOwnerName" id="petOwnerName">
+            <option>张三1</option>
+            <option>张三2</option>
+            <option>张三3</option>
+        </select>
+    </div>
+    <button id="updatePet">修改</button>
+    <button id="insertPet">添加</button>
+    <div class="view-visit">
+        <button id="visit1">浏览病例</button>
+    </div>
+    <div class="error-box"><p class="error" id="msg-box-error"></p></div>
+</div>
+
+<div class="insert-box-background" id="insert-box-background">
+    <div class="insert-box">
+        <h3>添加宠物</h3>
+        <div class="petName-box">
+            <label for="petName">宠物姓名</label>
+            <input type="text" id="petName2" name="petName">
+        </div>
+        <div class="petType-box">
+            <label for="petType">宠物类型</label>
+            <select name="petType" id="petType2">
+                <option value="dog">狗</option>
+                <option value="cat">猫</option>
+                <option value="bird">鸟</option>
+                <option value="fish">鱼</option>
+            </select>
+        </div>
+        <div class="petBirthDate-box">
+            <label for="petBirthDate">宠物年龄</label>
+            <input type="datetime-local" id="petBirthDate2" name="petBirthDate">
+        </div>
+        <div class="petOwnerName-box">
+            <label for="petOwnerName">宠物主人</label>
+            <select name="petOwnerName" id="petOwnerName2">
+                <option>张三1</option>
+                <option>张三2</option>
+                <option>张三3</option>
+            </select>
+        </div>
+        <div class="insert-control">
+            <button id="insert">添加信息</button>
+            <button id="cancel">取消</button>
+        </div>
+        <div class="view-visit">
+            <button id="visit2">浏览病例</button>
+        </div>
+        <div class="error-box"><p class="error" id="insert-box-error"></p></div>
+    </div>
+</div>
+
+
+
+<script>
+
+    //    点击修改按钮，检查输入信息，信息合法则将参数信息发送给"/updatePet"
+    document.getElementById("updatePet").onclick = function () {
+        var petName = document.getElementById("petName").value;
+        var petType = document.getElementById("petType").value;
+        var petBirthDate = document.getElementById("petBirthDate").value;
+        var petOwnerName = document.getElementById("petOwnerName").value;
+        if (petName === "" || petType === "" || petBirthDate === "" || petOwnerName === "") {
+            document.getElementById("msg-box-error").innerHTML = "请输入完整信息";
+            return;
+        }
+        var form = document.createElement("form");
+        form.action = "/updatePet";
+        form.method = "post";
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "petId";
+        input.value = petId;
+        form.appendChild(input);
+        input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "petName";
+        input.value = petName;
+        form.appendChild(input);
+        input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "petType";
+        input.value = petType;
+        form.appendChild(input);
+        input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "petBirthDate";
+        input.value = petBirthDate;
+        form.appendChild(input);
+        input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "petOwnerName";
+        input.value = petOwnerName;
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    //    点击添加按钮，设置
+    document.getElementById("insertPet").onclick = function () {
+        document.getElementById("insert-box-background").style.clipPath = "circle(75%)";
+    }
+
+    //    点击取消按钮，隐藏取消按钮和添加信息按钮，并恢复输入信息
+    document.getElementById("cancel").onclick = function () {
+        document.getElementById("insert-box-background").style.clipPath = "circle(0)";
+    }
+
+    //    点击添加信息按钮，检查输入信息，信息合法则将参数信息发送给"/insertPet"
+    document.getElementById("insert").onclick = function () {
+        var petName = document.getElementById("petName").value;
+        var petType = document.getElementById("petType").value;
+        var petBirthDate = document.getElementById("petBirthDate").value;
+        var petOwnerName = document.getElementById("petOwnerName").value;
+        if (petName === "" || petType === "" || petBirthDate === "" || petOwnerName === "") {
+            document.getElementById("insert-box-error").innerHTML = "请输入完整信息";
+            return;
+        }
+        var form = document.createElement("form");
+        form.action = "/insertPet";
+        form.method = "post";
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "petName";
+        input.value = petName;
+        form.appendChild(input);
+        input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "petType";
+        input.value = petType;
+        form.appendChild(input);
+        input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "petBirthDate";
+        input.value = petBirthDate;
+        form.appendChild(input);
+        input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "petOwnerName";
+        input.value = petOwnerName;
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+    //    点击浏览病例按钮，返回病例列表
+    document.getElementById("visit1").onclick = function () {
+        window.location.href = "/visit";
+    }
+
+    document.getElementById("visit2").onclick = function () {
+        window.location.href = "/visit";
+    }
+
+</script>
+</body>
+
+</html>

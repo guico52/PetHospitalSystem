@@ -12,11 +12,7 @@
 <html>
 <head>
     <title>Title</title>
-    <style>
-        .error{
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="/petInfo_css">
 </head>
 <body>
 <%
@@ -27,95 +23,105 @@
     List<Type> types = (List<Type>)request.getSession().getAttribute("types");
     List<PetOwner> owners = (List<PetOwner>)request.getSession().getAttribute("owners");
 %>
-<table>
-    <tr>
-        <td>宠物名称</td>
-        <td><input type="text" id="petName" name="petName" value="<%=pet.getName()%>"></td>
-        <td class="error" id="petNameError"></td>
-    </tr>
-    <tr>
-        <td>宠物类型</td>
-        <td><select name="petType" id="petType">
+<div class="msg-box">
+    <h3>宠物信息</h3>
+    <input type="text" name="petId" id="petId" value="<%=pet.getId()%>" hidden="hidden">
+    <div class="petName-box">
+        <label for="petName">宠物名称</label>
+        <input type="text" id="petName" name="petName" value="<%=pet.getName()%>">
+    </div>
+    <div class="petType-box">
+        <label for="petType">宠物类型</label>
+        <select name="petType" id="petType">
             <%
             for(Type type:types){
-                if(type.getTypeId()==pet.getTypeId()){
+                if(pet.getTypeId()==type.getTypeId()){
                     %>
-                    <option value="<%=type.getTypeId()%>" selected="selected"><%=type.getTypeName()%></option>
+                    <option value="<%=type.getTypeId()%>" selected><%=type.getTypeName()%></option>
                     <%
-                }else{
-                    %>
-                    <option value="<%=type.getTypeId()%>"><%=type.getTypeName()%></option>
-                    <%
-                }
-            }
+                        } else{
             %>
-        </select></td>
-        <td class="error"></td>
-    </tr>
-    <tr>
-        <td>出生日期</td>
-        <td><input type="datetime-local" id="petBirthDate" name="petBirthDate" value="<%=pet.getBirthDate()%>"></td>
-        <td class="error" id="petBirthDateError"></td>
-    </tr>
-    <tr>
-        <td>主人姓名</td>
-        <td><select name="petOwnerName" id="petOwnerName">
+            <option value="<%=type.getTypeId()%>"><%=type.getTypeName()%></option>
+            <%
+            }}
+            %>
+        </select>
+    </div>
+    <div class="petBirthDate-box">
+        <label for="petBirthDate">宠物生日</label>
+        <input type="datetime-local" id="petBirthDate" name="petBirthDate" value="<%=pet.getBirthDate()%>">
+    </div>
+    <div class="petOwnerName-box">
+        <label for="petOwnerName">宠物主人</label>
+        <select name="petOwnerName" id="petOwnerName">
             <%
             for(PetOwner owner:owners){
-                if(owner.getPetOwnerId()==pet.getOwnerId()){
-                    %>
-                    <option value="<%=owner.getPetOwnerId()%>" selected="selected"><%=owner.getPetOwnerName()%></option>
-                    <%
-                }else{
-                    %>
-                    <option value="<%=owner.getPetOwnerId()%>"><%=owner.getPetOwnerName()%></option>
-                    <%
-                }
-            }
-            %>
-        </select></td>
-        <td class="error" id="petOwnerNameError"></td>
-    </tr>
-</table>
-<button id="updatePet" hidden="hidden">修改</button>
-<button id="insertPet" hidden="hidden">添加</button>
-<button id="insert" hidden="hidden">添加信息</button>
-<button id="cancel" hidden="hidden">取消</button>
-<button id="visit">浏览病例</button>
-<script>
-    var petId = "<%=pet.getId()%>";
-    document.getElementById("updatePet").hidden=false;
-    document.getElementById("insertPet").hidden=false;
+                %>
 
-//    点击修改按钮，检查输入信息，信息合法则将参数信息发送给"/updatePet"
+            <option value="<%=owner.getPetOwnerId()%>"><%=owner.getPetOwnerName()%></option>
+            <%
+                    }
+            %>
+        </select>
+    </div>
+    <button id="updatePet">修改</button>
+    <button id="insertPet">添加</button>
+    <div class="view-visit">
+        <button id="visit1">浏览病例</button>
+    </div>
+    <div class="error-box"><p class="error" id="msg-box-error"></p></div>
+</div>
+
+<div class="insert-box-background" id="insert-box-background">
+    <div class="insert-box">
+        <h3>添加宠物</h3>
+        <div class="petName-box">
+            <label for="petName">宠物姓名</label>
+            <input type="text" id="petName2" name="petName">
+        </div>
+        <div class="petType-box">
+            <label for="petType">宠物类型</label>
+            <select name="petType" id="petType2">
+                <option value="dog">狗</option>
+                <option value="cat">猫</option>
+                <option value="bird">鸟</option>
+                <option value="fish">鱼</option>
+            </select>
+        </div>
+        <div class="petBirthDate-box">
+            <label for="petBirthDate">宠物年龄</label>
+            <input type="datetime-local" id="petBirthDate2" name="petBirthDate">
+        </div>
+        <div class="petOwnerName-box">
+            <label for="petOwnerName">宠物主人</label>
+            <select name="petOwnerName" id="petOwnerName2">
+                <option>张三1</option>
+                <option>张三2</option>
+                <option>张三3</option>
+            </select>
+        </div>
+        <div class="insert-control">
+            <button id="insert">添加信息</button>
+            <button id="cancel">取消</button>
+        </div>
+        <div class="view-visit">
+            <button id="visit2">浏览病例</button>
+        </div>
+        <div class="error-box"><p class="error" id="insert-box-error"></p></div>
+    </div>
+</div>
+
+<script>
+
+    //    点击修改按钮，检查输入信息，信息合法则将参数信息发送给"/updatePet"
     document.getElementById("updatePet").onclick = function () {
         var petName = document.getElementById("petName").value;
         var petType = document.getElementById("petType").value;
+        var petId = document.getElementById("petId").value;
         var petBirthDate = document.getElementById("petBirthDate").value;
         var petOwnerName = document.getElementById("petOwnerName").value;
-        var petNameError = document.getElementById("petNameError");
-        var petBirthDateError = document.getElementById("petBirthDateError");
-        var petOwnerNameError = document.getElementById("petOwnerNameError");
-        var error = false;
-        if (petName === "") {
-            petNameError.innerHTML = "宠物名称不能为空";
-            error = true;
-        } else {
-            petNameError.innerHTML = "";
-        }
-        if (petBirthDate == "") {
-            petBirthDateError.innerHTML = "出生日期不能为空";
-            error = true;
-        } else {
-            petBirthDateError.innerHTML = "";
-        }
-        if (petOwnerName == "") {
-            petOwnerNameError.innerHTML = "主人姓名不能为空";
-            error = true;
-        } else {
-            petOwnerNameError.innerHTML = "";
-        }
-        if (error) {
+        if (petName === "" || petType === "" || petBirthDate === "" || petOwnerName === "") {
+            document.getElementById("msg-box-error").innerHTML = "请输入完整信息";
             return;
         }
         var form = document.createElement("form");
@@ -150,59 +156,24 @@
         form.submit();
     }
 
-//    点击添加按钮，清空输入信息，修改按钮隐藏属性
+    //    点击添加按钮，设置
     document.getElementById("insertPet").onclick = function () {
-        document.getElementById("petName").value = "";
-        document.getElementById("petType").value = "";
-        document.getElementById("petBirthDate").value = "";
-        document.getElementById("petOwnerName").value = "";
-        document.getElementById("updatePet").hidden=true;
-        document.getElementById("insertPet").hidden=true;
-        document.getElementById("insert").hidden=false;
-        document.getElementById("cancel").hidden=false;
+        document.getElementById("insert-box-background").style.clipPath = "circle(75%)";
     }
 
-//    点击取消按钮，隐藏取消按钮和添加信息按钮，并恢复输入信息
+    //    点击取消按钮，隐藏取消按钮和添加信息按钮，并恢复输入信息
     document.getElementById("cancel").onclick = function () {
-        document.getElementById("updatePet").hidden=false;
-        document.getElementById("insertPet").hidden=false;
-        document.getElementById("cancle").hidden=true;
-        document.getElementById("insert").hidden=true;
-        document.getElementById("petName").value = "<%=pet.getName()%>";
-        document.getElementById("petType").value = "<%=pet.getTypeId()%>";
-        document.getElementById("petBirthDate").value = "<%=pet.getBirthDate()%>";
-        document.getElementById("petOwnerName").value = "<%=pet.getOwnerId()%>";
+        document.getElementById("insert-box-background").style.clipPath = "circle(0)";
     }
 
-//    点击添加信息按钮，检查输入信息，信息合法则将参数信息发送给"/insertPet"
+    //    点击添加信息按钮，检查输入信息，信息合法则将参数信息发送给"/insertPet"
     document.getElementById("insert").onclick = function () {
         var petName = document.getElementById("petName").value;
         var petType = document.getElementById("petType").value;
         var petBirthDate = document.getElementById("petBirthDate").value;
         var petOwnerName = document.getElementById("petOwnerName").value;
-        var petNameError = document.getElementById("petNameError");
-        var petBirthDateError = document.getElementById("petBirthDateError");
-        var petOwnerNameError = document.getElementById("petOwnerNameError");
-        var error = false;
-        if (petName == "") {
-            petNameError.innerHTML = "宠物名称不能为空";
-            error = true;
-        } else {
-            petNameError.innerHTML = "";
-        }
-        if (petBirthDate == "") {
-            petBirthDateError.innerHTML = "出生日期不能为空";
-            error = true;
-        } else {
-            petBirthDateError.innerHTML = "";
-        }
-        if (petOwnerName == "") {
-            petOwnerNameError.innerHTML = "主人姓名不能为空";
-            error = true;
-        } else {
-            petOwnerNameError.innerHTML = "";
-        }
-        if (error) {
+        if (petName === "" || petType === "" || petBirthDate === "" || petOwnerName === "") {
+            document.getElementById("insert-box-error").innerHTML = "请输入完整信息";
             return;
         }
         var form = document.createElement("form");
@@ -231,8 +202,12 @@
         document.body.appendChild(form);
         form.submit();
     }
-//    点击浏览病例按钮，返回病例列表
-    document.getElementById("visit").onclick = function () {
+    //    点击浏览病例按钮，返回病例列表
+    document.getElementById("visit1").onclick = function () {
+        window.location.href = "/visit";
+    }
+
+    document.getElementById("visit2").onclick = function () {
         window.location.href = "/visit";
     }
 

@@ -84,6 +84,11 @@ body{
     transition: 0.5s;
 }
 
+.input-box button:hover{
+    background: linear-gradient(-200deg,#fac0e7,#aac2ee);
+    background-position-x: -200px;
+}
+
 .input-box .error{
     position: relative;
     color: red;
@@ -147,7 +152,7 @@ body{
 }
 
 .show-table tbody tr td{
-    padding: 10px 40px 0 40px;
+    padding: 10px 40px 10px 40px;
     width: 100px;
     height: 30px;
     text-align: center;
@@ -168,12 +173,11 @@ body{
 
 
 
-
 #select-again{
     position: relative;
     top:85%;
     left:70%;
-    background: linear-gradient(200deg,#e3c5eb,#a9c1ed);
+    background: linear-gradient(-90deg,#ffeb3b,#03a9f4);
     width: 100px;
     height: 30px;
     text-align: center;
@@ -182,5 +186,20 @@ body{
     cursor: pointer;
 }
 
+#select-again:hover{
+    background: linear-gradient(-90deg,#ffeb3b,#03a9f4);
+    background-position-x: -100px;
+}
+
+.show-table tbody tr td a{
+    color: #000;
+    text-decoration: none;
+    position: relative;
+    line-height:30px;
+}
+
+.show-table tbody tr td a:hover{
+    color: #03a9f4;
+}
 
 

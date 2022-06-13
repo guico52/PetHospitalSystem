@@ -34,8 +34,8 @@ public class ClientController {
     @Autowired
     private TypeMapperImpl typeMapper;
 
-    private void checkUser(HttpServletRequest  req,HttpServletResponse res){
-        if(req.getSession().getAttribute("emp")==null) {
+    private void checkUser(HttpServletRequest req, HttpServletResponse res) {
+        if (req.getSession().getAttribute("emp") == null) {
             try {
                 System.out.println("awful user");
                 res.sendRedirect("/login");
@@ -46,59 +46,60 @@ public class ClientController {
     }
 
     @RequestMapping("/test")
-    public void test(int id){
+    public void test(int id) {
         System.out.println(vetMapper.selectById(id));
     }
 
 
-//    兽医业务代码区域
+    //    兽医业务代码区域
 //    跳转到vet页面
     @RequestMapping("/vet")
-    public String  vet(HttpServletRequest request,HttpServletResponse resp){
-        checkUser(request,resp);
+    public String vet(HttpServletRequest request, HttpServletResponse resp) {
+        checkUser(request, resp);
         List<Spec> specs = specMapper.selectAll();
-        request.setAttribute("specs",specs);
+        request.setAttribute("specs", specs);
         System.out.println(specs);
         return "vet";
     }
 
-//
+    //
     @RequestMapping("/selectVets")
-    public String selectVets(HttpServletRequest req){
+    public String selectVets(HttpServletRequest req) {
         String name = req.getParameter("vetName");
         String spec = req.getParameter("vetSpec");
-        System.out.println(name+" "+spec);
+        System.out.println(name + " " + spec);
         List<Vet> res;
-        if (name.equals("")&&spec!=null){
+        if (name.equals("") && spec != null) {
             res = vetMapper.selectVetBySpecId(Integer.parseInt(spec));
             System.out.println("select by spec");
-        } else if(!name.equals("")&&spec==null){
+        } else if (!name.equals("") && spec == null) {
             res = vetMapper.selectByName(name);
             System.out.println("select by name");
-        } else if(!name.equals("")&&spec!=null){
+        } else if (!name.equals("") && spec != null) {
             res = vetMapper.selectVetBySpecAndName(Integer.parseInt(spec), name);
             System.out.println("select by spec and name");
         } else {
             res = vetMapper.selectAll();
         }
-        req.setAttribute("res",res);
+        req.setAttribute("res", res);
         System.out.println(res);
         return "vetRes";
     }
 
 
-//    宠物业务区域
+    //    宠物业务区域
 //    跳转到petOwner页面
     @RequestMapping("/pet")
-    public String petOwner(HttpServletRequest req, HttpServletResponse resp){
-        checkUser(req,resp);
+    public String petOwner(HttpServletRequest req, HttpServletResponse resp) {
+        checkUser(req, resp);
         return "pet";
     }
-//    从请求中获取petName,根据其获取宠物信息的json字符串
-    @RequestMapping(value = "/selectByPetName",produces = "application/json;charset=utf-8")
+
+    //    从请求中获取petName,根据其获取宠物信息的json字符串
+    @RequestMapping(value = "/selectByPetName", produces = "application/json;charset=utf-8")
     @ResponseBody
     public String petInfo(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, UnsupportedEncodingException {
-        checkUser(req,resp);
+        checkUser(req, resp);
         System.out.println("select pet by petName");
         String petName = req.getParameter("petName");
         System.out.println(petName);
@@ -110,11 +111,11 @@ public class ClientController {
         return json;
     }
 
-//    从请求中获取petOwnerName,根据其获取宠物信息的List集合并以json字符串形式返回
-    @RequestMapping(value = "/selectByOwnerName" ,produces = "application/json;charset=utf-8")
+    //    从请求中获取petOwnerName,根据其获取宠物信息的List集合并以json字符串形式返回
+    @RequestMapping(value = "/selectByOwnerName", produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String  selectByOwnerName(HttpServletRequest req,HttpServletResponse resp) throws UnsupportedEncodingException, JsonProcessingException {
-        checkUser(req,resp);
+    public String selectByOwnerName(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException, JsonProcessingException {
+        checkUser(req, resp);
         System.out.println("select pet by ownerName");
         String petOwnerName = req.getParameter("ownerName");
         ObjectMapper objectMapper = new ObjectMapper();
@@ -124,35 +125,37 @@ public class ClientController {
     }
 
 
-//    从请求中获取ownerId,根据id调用mapper获取宠物主人信息，并将宠物主人信息展示在petOwnerInfo页面
+    //    从请求中获取ownerId,根据id调用mapper获取宠物主人信息，并将宠物主人信息展示在petOwnerInfo页面
     @RequestMapping("/ownerInfo")
-    public String petOwnerInfoPage(HttpServletRequest req,HttpServletResponse resp){
+    public String petOwnerInfoPage(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("ownerInfo");
         checkUser(req, resp);
         int ownerId = Integer.parseInt(req.getParameter("ownerId"));
         PetOwner petOwner = petOwnerMapper.selectPetOwnerByPetOwnerId(ownerId);
         System.out.println(petOwner);
-        req.getSession().setAttribute("owner",petOwner);
+        req.getSession().setAttribute("owner", petOwner);
         return "ownerInfo";
     }
 
-//    根据提交表单信息构建一个PetOwner对象，并调用mapper修改数据库中的宠物主人信息
+    //    根据提交表单信息构建一个PetOwner对象，并调用mapper修改数据库中的宠物主人信息
     @RequestMapping("/updatePetOwner")
-    public void updatePetOwner(HttpServletRequest req,HttpServletResponse res){
+    public void updatePetOwner(HttpServletRequest req, HttpServletResponse res) {
+        System.out.println("update pet owner");
         int id = Integer.parseInt(req.getParameter("ownerId"));
         String name = req.getParameter("ownerName");
         String address = req.getParameter("ownerAddress");
         String city = req.getParameter("ownerCity");
         String phone = req.getParameter("ownerPhone");
-        PetOwner owner = new PetOwner(id,name,address,city,phone);
+        PetOwner owner = new PetOwner(id, name, address, city, phone);
         System.out.println(owner);
         petOwnerMapper.updatePetOwner(owner);
 //        更新session中的owner
         owner = petOwnerMapper.selectPetOwnerByPetOwnerId(owner.getPetOwnerId());
         System.out.println(owner);
-        req.getSession().setAttribute("owner",owner);
+        req.getSession().setAttribute("owner", owner);
         try {
 //            弹窗提示修改成功并跳转到ownerInfo页面
-            res.getWriter().write("<script>alert('update success');window.location.href='/ownerInfo?ownerId="+id+"';</script>");
+            res.getWriter().write("<script>alert('update success');window.location.href='/ownerInfo?ownerId=" + id + "';</script>");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -160,6 +163,7 @@ public class ClientController {
 
     @RequestMapping("/insertPetOwner")
     public void insertPetOwner(HttpServletRequest req,HttpServletResponse res){
+        System.out.println("insert pet owner");
         String name = req.getParameter("ownerName2");
         String address = req.getParameter("ownerAddress2");
         String city = req.getParameter("ownerCity2");
@@ -191,6 +195,7 @@ public class ClientController {
 
     @RequestMapping("/updatePet")
     public void updatePet(HttpServletResponse res, HttpServletRequest req){
+        System.out.println("update pet");
         int petId = Integer.parseInt(req.getParameter("petId"));
         String petName = req.getParameter("petName");
         String petBirthDate = req.getParameter("petBirthDate");
@@ -211,6 +216,7 @@ public class ClientController {
 
     @RequestMapping("/insertPet")
     public void insertPet(HttpServletResponse res, HttpServletRequest req){
+        System.out.println("insert pet");
         String petName = req.getParameter("petName");
         String petBirthDate = req.getParameter("petBirthDate");
         int petTypeId = Integer.parseInt(req.getParameter("petType"));
