@@ -25,15 +25,6 @@ public class LoginController {
 //    返回client
     @RequestMapping("/client")
     public String client(HttpServletResponse resp, HttpServletRequest req){
-        if(req.getSession().getAttribute("emp") == null){
-            try {
-                System.out.println("未登录");
-                resp.sendRedirect("/login");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        System.out.println("已登录,返回client");
         return "client";
     }
 

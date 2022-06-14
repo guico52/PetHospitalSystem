@@ -45,4 +45,10 @@ public class CssController {
     public String ownerInfo(){
         return "ownerInfo_css";
     }
+
+    @RequestMapping("/visit_css")
+    public String visit(){
+        return "visit_css";
+    }
+
 }

@@ -12,6 +12,8 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="/visit_css"/>
+
 </head>
 <body>
 <%
@@ -20,101 +22,87 @@
     List<PetVisit> visits = (List<PetVisit>) session.getAttribute("visits");
     List<PetOwner> owners = (List<PetOwner>) session.getAttribute("owners");
 %>
-<div id="msg" hidden="hidden">
-    <table>
-        <tr>
-            <td>
-                <label>宠物名称</label>
-                <input type="text" value="<%=pet.getName()%>">
-            </td>
-            <td>
-                <label>宠物种类</label>
-                <input type="text" value="<%=pet.getTypeName()%>">
-            </td>
-            <td>
-                <lable>主人姓名</lable>
-                <input type="text" value="<%=pet.getOwnerName()%>">
-            </td>
-        </tr>
-    </table>
-    <table>
+<div class="visit-table">
+    <h3>病例信息</h3>
+    <table class="visitTable">
+        <thead>
         <tr>
             <td>诊断时间</td>
             <td>备注</td>
         </tr>
+        </thead>
+        <tbody>
         <%
-            for(PetVisit visit:visits){
+        for (PetVisit visit : visits) {
         %>
         <tr>
-            <td><%=visit.getPetVisitDate()%></td>
-            <td><%=visit.getPetVisitDescription()%></td>
+            <td><%= visit.getPetVisitDate() %></td>
+            <td><%= visit.getPetVisitDescription() %></td>
         </tr>
         <%
-            }
-        %>
-    </table>
-    <buton id="addVisit">添加病例</buton>
-</div>
-
-<form id="addVisitForm" action="/insertVisit">
-    <table>
-        <td><input type="text" id="petId" name="petId" value="<%=pet.getId()%>" hidden="hidden"></td>
-        <tr>
-            <td>宠物名称</td>
-            <td><input type="text" id="petName" name="petName" value="<%=pet.getName()%>" disabled="disabled"></td>
-        </tr>
-        <tr>
-            <td>主人名称</td>
-            <td>
-                <input type="text" id="ownerName" name="ownerName" value="<%=pet.getOwnerName()%>" disabled="disabled">
-            </td>
-        </tr>
-        <tr>
-            <td>宠物类型</td>
-            <td><input type="text" id="petTypeName" name="petTypeName" disabled="disabled" value="<%=pet.getTypeName()%>"></td>
-        </tr>
-        <tr>
-            <td>诊断时间</td>
-            <td><input type="datetime-local" id="petVisitDate" name="petVisitDate"></td>
-        </tr>
-        <tr>
-            <td>描述</td>
-            <td><textarea id="petVisitDesc" name="petVisitDesc"></textarea></td>
-        </tr>
-    </table>
-    <input type="submit" value="增加">
-    <button type="button" id="cancel">返回</button>
-    <input type="reset" value="清空">
-</form>
-
-<table>
-    <tr>
-        <td>诊断时间</td>
-        <td>备注</td>
-    </tr>
-    <%
-        for(PetVisit visit:visits){
-    %>
-    <tr>
-        <td><%=visit.getPetVisitDate()%></td>
-        <td><%=visit.getPetVisitDescription()%></td>
-    </tr>
-    <%
         }
-    %>
-</table>
+        %>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td><button id="addVisit">添加病例</button></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="msg-background" id="msg-background">
+    <div class="msg-box">
+        <form action="/insertVisit" class="visit-form">
+            <h3>添加病例</h3>
+            <input type="hidden" id="petId" name="petId" value="<%=pet.getId()%>">
+            <div class="petName-box">
+                <label for="petName">宠物名称</label>
+                <input type="text" id="petName" class="petName" name="petName" disabled="disabled" value="<%=pet.getName()%>">
+            </div>
+            <div class="petOwnerName-box">
+                <label for="petOwnerName">主人姓名</label>
+                <input type="text" id="petOwnerName" class="petOwnerName" name="petOwnerName" disabled="disabled" value="<%=pet.getOwnerName()%>">
+            </div>
+            <div class="petTypeName-box">
+                <label for="petTypeName">宠物种类</label>
+                <input  type="text" id="petTypeName" class="petTypeName" name="petTypeName" disabled="disabled" value="<%=pet.getTypeName()%>">
+            </div>
+            <div class="petVisitDate-box">
+                <label for="petVisitDate">诊断时间</label>
+                <input type="datetime-local" id="petVisitDate" class="petVisitDate" name="petVisitDate">
+            </div>
+            <div class="petVisitDesc-box">
+                <label for="petVisitDesc">描述</label>
+                <input id="petVisitDesc" class="petVisitDesc" name="petVisitDesc">
+            </div>
+            <div class="petVisitControl-box">
+                <button type="submit" id="submit">添加</button>
+                <button type="button" id="cancel">返回</button>
+            </div>
+            <div class="input-error"><p class="error"></p></div>
+        </form>
 
+    </div>
+</div>
 <script>
-    //点击添加病例按钮，隐藏添加病例表单，显示添加病例表单
-    document.getElementById("addVisit").onclick = function () {
-        document.getElementById("msg").hidden = true;
-        document.getElementById("addVisitForm").hidden = false;
+    document.getElementById("addVisit").onclick = function(){
+        document.getElementById("msg-background").style.clipPath = "circle(75% at center)";
     };
+    document.getElementById("cancel").onclick = function(){
+        document.getElementById("msg-background").style.clipPath = "circle(0% at center)";
+    };
+    //    表单提交前检查输入
+    document.getElementById("submit").onclick = function (){
+        var petId = document.getElementById("petId").value;
+        var petVisitDate = document.getElementById("petVisitDate").value;
+        var petVisitDesc = document.getElementById("petVisitDesc").value;
+        var error = document.getElementsByClassName("error")[0];
+        if(petVisitDate === ""||petVisitDesc === ""){
+            error.innerHTML = "请输入完整信息";
+            return false;
+        }
+    }
 
-    //点击返回按钮，返回到petInfo.jsp
-    document.getElementById("cancel").onclick = function () {
-        window.location.href = "/petInfo?petId=<%=pet.getId()%>";
-    };
 </script>
 
 </body>

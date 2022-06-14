@@ -34,16 +34,6 @@ public class ClientController {
     @Autowired
     private TypeMapperImpl typeMapper;
 
-    private void checkUser(HttpServletRequest req, HttpServletResponse res) {
-        if (req.getSession().getAttribute("emp") == null) {
-            try {
-                System.out.println("awful user");
-                res.sendRedirect("/login");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @RequestMapping("/test")
     public void test(int id) {
@@ -55,7 +45,6 @@ public class ClientController {
 //    跳转到vet页面
     @RequestMapping("/vet")
     public String vet(HttpServletRequest request, HttpServletResponse resp) {
-        checkUser(request, resp);
         List<Spec> specs = specMapper.selectAll();
         request.setAttribute("specs", specs);
         System.out.println(specs);
@@ -91,7 +80,6 @@ public class ClientController {
 //    跳转到petOwner页面
     @RequestMapping("/pet")
     public String petOwner(HttpServletRequest req, HttpServletResponse resp) {
-        checkUser(req, resp);
         return "pet";
     }
 
@@ -99,7 +87,6 @@ public class ClientController {
     @RequestMapping(value = "/selectByPetName", produces = "application/json;charset=utf-8")
     @ResponseBody
     public String petInfo(HttpServletRequest req, HttpServletResponse resp) throws JsonProcessingException, UnsupportedEncodingException {
-        checkUser(req, resp);
         System.out.println("select pet by petName");
         String petName = req.getParameter("petName");
         System.out.println(petName);
@@ -115,7 +102,6 @@ public class ClientController {
     @RequestMapping(value = "/selectByOwnerName", produces = "application/json;charset=utf-8")
     @ResponseBody
     public String selectByOwnerName(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException, JsonProcessingException {
-        checkUser(req, resp);
         System.out.println("select pet by ownerName");
         String petOwnerName = req.getParameter("ownerName");
         ObjectMapper objectMapper = new ObjectMapper();
@@ -129,7 +115,6 @@ public class ClientController {
     @RequestMapping("/ownerInfo")
     public String petOwnerInfoPage(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println("ownerInfo");
-        checkUser(req, resp);
         int ownerId = Integer.parseInt(req.getParameter("ownerId"));
         PetOwner petOwner = petOwnerMapper.selectPetOwnerByPetOwnerId(ownerId);
         System.out.println(petOwner);
@@ -182,7 +167,6 @@ public class ClientController {
 //    从请求中获取petId,根据id调用mapper获取宠物信息，并将宠物信息展示在petInfo页面
     @RequestMapping("/petInfo")
     public String petInfoPage(HttpServletRequest req,HttpServletResponse resp){
-        checkUser(req, resp);
         int petId = Integer.parseInt(req.getParameter("petId"));
         Pet pet = petMapper.selectById(petId);
         List<Type> types = typeMapper.selectAll();
@@ -238,10 +222,9 @@ public class ClientController {
 //    跳转到visit页面
     @RequestMapping("/visit")
     public String visit(HttpServletRequest req,HttpServletResponse resp){
-        checkUser(req, resp);
         Pet pet =(Pet) req.getSession().getAttribute("pet");
         List<PetOwner> owners = petOwnerMapper.selectAllPetOwners();
-        List<PetVisit> visits = petVisitMapper.selectAll();
+        List<PetVisit> visits = petVisitMapper.selectByPetId(pet.getId());
         HttpSession session = req.getSession();
         session.setAttribute("visits",visits);
         session.setAttribute("owners",owners);
@@ -264,13 +247,11 @@ public class ClientController {
 // type区域
     @RequestMapping("/type")
     public String type(HttpServletRequest req, HttpServletResponse resp){
-        checkUser(req, resp);
         return "type";
     }
 
     @RequestMapping("/insertType")
     public void insertType(HttpServletRequest req, HttpServletResponse res){
-        checkUser(req, res);
         String typeName = req.getParameter("typeName");
         Type type = new Type(typeName);
         typeMapper.insertType(type);
