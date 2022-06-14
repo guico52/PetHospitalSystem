@@ -22,13 +22,14 @@
         .type-box{
             position: absolute;
             top:40%;
-            left: 40%;
+            left: 35%;
             width: 400px;
             height: 200px;
             background: #fff;
             align-items: center;
             text-align: center;
             border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.25);
         }
         .type-box h3{
             font-size: 20px;
@@ -57,9 +58,18 @@
             background-position-x: -100px;
         }
 
+
     </style>
+    <link rel="stylesheet" href="/direct_css">
 </head>
 <body>
+<div class="direct">
+    <a href="/client">首页</a>
+    <a href="/vet">兽医</a>
+    <a href="/pet">宠物</a>
+    <a href="/type">类型</a>
+    <a href="/logout">退出</a>
+</div>
 <div class="type-box">
     <form action="/insertType">
         <h3>添加宠物类型</h3>

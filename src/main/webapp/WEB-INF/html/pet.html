@@ -3,10 +3,44 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="../css/pet_css.css">
+    <style>
+        .direct{
+            position: absolute;
+            display: inline;
+            top: 20px;
+            left: 35%;
+            height: 30px;
+            width: 500px;
+            align-items: center;
+            text-align: center;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.25);
+        }
+        .direct a{
+            margin: 0 20px;
+            text-align: center;
+            height: 100vh;
+            font-size: 20px;
+            border: 0;
+            border-radius: 5px;
+            transition: all 0.5s ease-in-out;
+        }
+        .direct a:hover{
+            color: #fff;
+            background: #00a2d4;
+        }
+    </style>
 </head>
 <body>
-<input type="checkbox" id="back-btn"/>
-<label for="back-btn" class="back-btn">返回</label>
+<div class="direct">
+    <a href="/client">首页</a>
+    <a href="/vet">兽医</a>
+    <a href="/pet">宠物</a>
+    <a href="/type">类型</a>
+    <a href="/logout">退出</a>
+</div>
+
 <div class="input-box" id="input-box">
     <h3>宠物查询</h3>
     <input type="text" id="petName" placeholder="宠物名称">

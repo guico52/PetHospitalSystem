@@ -13,7 +13,7 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/visit_css"/>
-
+    <link rel="stylesheet" href="/direct_css">
 </head>
 <body>
 <%
@@ -22,6 +22,13 @@
     List<PetVisit> visits = (List<PetVisit>) session.getAttribute("visits");
     List<PetOwner> owners = (List<PetOwner>) session.getAttribute("owners");
 %>
+<div class="direct">
+    <a href="/client">首页</a>
+    <a href="/vet">兽医</a>
+    <a href="/pet">宠物</a>
+    <a href="/type">类型</a>
+    <a href="/logout">退出</a>
+</div>
 <div class="visit-table">
     <h3>病例信息</h3>
     <table class="visitTable">

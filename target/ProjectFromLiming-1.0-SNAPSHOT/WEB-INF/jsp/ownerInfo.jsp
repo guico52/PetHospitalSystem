@@ -10,12 +10,20 @@
 <head>
     <title>Title</title>
     <link href="/ownerInfo_css" rel="stylesheet">
+    <link rel="stylesheet" href="/direct_css">
 </head>
 <body>
 <%
     PetOwner owner = (PetOwner)request.getSession().getAttribute("owner");
     System.out.println(owner);
 %>
+<div class="direct">
+    <a href="/client">首页</a>
+    <a href="/vet">兽医</a>
+    <a href="/pet">宠物</a>
+    <a href="/type">类型</a>
+    <a href="/logout">退出</a>
+</div>
 <div class="update-petOwner-box">
     <form action="/updatePetOwner" id="updateOwner">
         <h3>主人信息</h3>
@@ -110,9 +118,6 @@
             return true;
         }
     }
-
-
-
 </script>
 </body>
 </html>

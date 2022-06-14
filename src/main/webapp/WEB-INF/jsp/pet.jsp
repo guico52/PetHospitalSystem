@@ -11,10 +11,16 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/pet_css">
+    <link rel="stylesheet" href="/direct_css">
 </head>
 <body>
-<input type="checkbox" id="back-btn"/>
-<label for="back-btn" class="back-btn">返回</label>
+<div class="direct">
+    <a href="/client">首页</a>
+    <a href="/vet">兽医</a>
+    <a href="/pet">宠物</a>
+    <a href="/type">类型</a>
+    <a href="/logout">退出</a>
+</div>
 <div class="input-box" id="input-box">
     <h3>宠物查询</h3>
     <input type="text" id="petName" placeholder="宠物名称">

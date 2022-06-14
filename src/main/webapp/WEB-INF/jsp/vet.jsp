@@ -17,13 +17,19 @@
     <title>Document</title>
     <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/vet_css" rel="stylesheet">
+    <link rel="stylesheet" href="/direct_css">
 </head>
 <body>
 <%
     List<Spec> specs = (List<Spec>) request.getAttribute("specs");
 %>
-<button id="back-button"></button>
-<label for="back-button" class="back-button"><i class="fa fa-arrow-left" aria-hidden="true"></i></label>
+<div class="direct">
+    <a href="/client">首页</a>
+    <a href="/vet">兽医</a>
+    <a href="/pet">宠物</a>
+    <a href="/type">类型</a>
+    <a href="/logout">退出</a>
+</div>
 
 <div class="search-box">
     <form action="/selectVets">
@@ -39,11 +45,5 @@
         <input id="select-button" type="submit" value="查找">
     </form>
 </div>
-<script>
-    //点击返回按钮，返回上一页，并不能通过历史返回
-    document.getElementById("back-button").onclick = function () {
-        history.back();
-    };
-</script>
 </body>
 </html>

@@ -51,4 +51,9 @@ public class CssController {
         return "visit_css";
     }
 
+    @RequestMapping("/direct_css")
+    public String direct(){
+        return "direct_css";
+    }
+
 }

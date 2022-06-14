@@ -13,8 +13,16 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/petInfo_css">
+    <link rel="stylesheet" href="/direct_css">
 </head>
 <body>
+<div class="direct">
+    <a href="/client">首页</a>
+    <a href="/vet">兽医</a>
+    <a href="/pet">宠物</a>
+    <a href="/type">类型</a>
+    <a href="/logout">退出</a>
+</div>
 <%
     Pet pet= (Pet)session.getAttribute("pet");
     String birthday=pet.getBirthDate();
