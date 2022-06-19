@@ -12,14 +12,19 @@
     <title>Title</title>
     <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/vetRes_css" rel="stylesheet">
-
+    <link rel="stylesheet" href="/direct_css">
 </head>
 <body>
 <%
     List<Vet> vets = (List<Vet>)request.getAttribute("res");
 %>
-<button id="back-button"></button>
-<label for="back-button" class="back-button"><i class="fa fa-arrow-left" aria-hidden="true"></i></label>
+<div class="direct">
+    <a href="/client">首页</a>
+    <a href="/vet">兽医</a>
+    <a href="/pet">宠物</a>
+    <a href="/type">类型</a>
+    <a href="/logout">退出</a>
+</div>
 <div class="msg-box">
     <table>
         <thead>

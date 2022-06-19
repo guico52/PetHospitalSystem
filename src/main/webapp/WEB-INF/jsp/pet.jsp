@@ -49,10 +49,6 @@
 </div>
 <script>
 
-    document.getElementById("back-btn").onclick = function () {
-        window.location.href = "/client";
-    }
-
     //    点击selectByPetName按钮后，发送请求，获取数据
     document.getElementById("selectByPetName").onclick = function () {
         var petName = document.getElementById("petName").value;

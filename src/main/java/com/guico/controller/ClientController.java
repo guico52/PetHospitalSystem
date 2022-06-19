@@ -140,7 +140,7 @@ public class ClientController {
         req.getSession().setAttribute("owner", owner);
         try {
 //            弹窗提示修改成功并跳转到ownerInfo页面
-            res.getWriter().write("<script>alert('update success');window.location.href='/ownerInfo?ownerId=" + id + "';</script>");
+            res.getWriter().write("<script>alert('update success');window.location.href='/ownerInfo?ownerId="+owner.getPetOwnerId()+"';</script>");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -155,8 +155,10 @@ public class ClientController {
         String phone = req.getParameter("ownerPhone2");
         PetOwner owner = new PetOwner(name,address,city,phone);
         petOwnerMapper.insertPetOwner(owner);
+        PetOwner owner2 = (PetOwner)req.getSession().getAttribute("owner");
         try {
-            res.getWriter().println("<script>alert('add success');;window.location.href='/pet'</script>");
+//              弹窗提示后刷新页面
+            res.getWriter().write("<script>alert('insert success');window.location.href='/ownerInfo?ownerId="+owner2.getPetOwnerId()+"';</script>");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -168,6 +170,7 @@ public class ClientController {
     @RequestMapping("/petInfo")
     public String petInfoPage(HttpServletRequest req,HttpServletResponse resp){
         int petId = Integer.parseInt(req.getParameter("petId"));
+        req.setAttribute("petId",petId);
         Pet pet = petMapper.selectById(petId);
         List<Type> types = typeMapper.selectAll();
         List<PetOwner> owners = petOwnerMapper.selectAllPetOwners();
@@ -181,6 +184,7 @@ public class ClientController {
     public void updatePet(HttpServletResponse res, HttpServletRequest req){
         System.out.println("update pet");
         int petId = Integer.parseInt(req.getParameter("petId"));
+        System.out.println(petId);
         String petName = req.getParameter("petName");
         String petBirthDate = req.getParameter("petBirthDate");
         int petTypeId = Integer.parseInt(req.getParameter("petType"));
@@ -201,16 +205,18 @@ public class ClientController {
     @RequestMapping("/insertPet")
     public void insertPet(HttpServletResponse res, HttpServletRequest req){
         System.out.println("insert pet");
+        Pet pet = (Pet) req.getSession().getAttribute("pet");
+        int petId = pet.getId();
         String petName = req.getParameter("petName");
         String petBirthDate = req.getParameter("petBirthDate");
         int petTypeId = Integer.parseInt(req.getParameter("petType"));
         int petOwnerId = Integer.parseInt(req.getParameter("petOwnerName"));
         Type type = typeMapper.selectById(petTypeId);
         PetOwner owner = petOwnerMapper.selectPetOwnerByPetOwnerId(petOwnerId);
-        Pet pet= new Pet(petName,petBirthDate,type,owner);
+        pet= new Pet(petName,petBirthDate,type,owner);
         petMapper.insertPet(pet);
         try {
-            res.getWriter().write("<script>alert('add success');window.location.href='/pet';</script>");
+            res.getWriter().write("<script>alert('insert success');window.location.href='/petInfo?petId="+petId+"';</script>");
         } catch (IOException e) {
             e.printStackTrace();
         }

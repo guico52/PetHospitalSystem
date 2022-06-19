@@ -20,7 +20,7 @@
 
 body{
     height: 100vh;
-    background: linear-gradient(200deg,#ec77ab,#7873f5);
+    background: linear-gradient(-200deg,#aac2ee,#fac0e7);
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -50,6 +50,7 @@ body{
     margin: 10px auto;
     border: none;
     border-bottom: 1px solid #ddd;
+    text-align: center;
 }
 
 .search-box #vetSpec{

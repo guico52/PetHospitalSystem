@@ -30,6 +30,7 @@
     pet.setBirthDate(birthday);
     List<Type> types = (List<Type>)request.getSession().getAttribute("types");
     List<PetOwner> owners = (List<PetOwner>)request.getSession().getAttribute("owners");
+    request.setAttribute("petId",pet.getId());
 %>
 <div class="msg-box">
     <h3>宠物信息</h3>
@@ -90,22 +91,29 @@
         <div class="petType-box">
             <label for="petType">宠物类型</label>
             <select name="petType" id="petType2">
-                <option value="dog">狗</option>
-                <option value="cat">猫</option>
-                <option value="bird">鸟</option>
-                <option value="fish">鱼</option>
+                <%
+                    for (Type type:types){
+                        %>
+                        <option value="<%=type.getTypeId()%>"><%=type.getTypeName()%></option>
+                        <%
+                    }
+                %>
             </select>
         </div>
         <div class="petBirthDate-box">
-            <label for="petBirthDate">宠物年龄</label>
+            <label for="petBirthDate">宠物生日</label>
             <input type="datetime-local" id="petBirthDate2" name="petBirthDate">
         </div>
         <div class="petOwnerName-box">
             <label for="petOwnerName">宠物主人</label>
             <select name="petOwnerName" id="petOwnerName2">
-                <option>张三1</option>
-                <option>张三2</option>
-                <option>张三3</option>
+                <%
+                for(PetOwner owner:owners){
+                    %>
+                    <option value="<%=owner.getPetOwnerId()%>"><%=owner.getPetOwnerName()%></option>
+                    <%
+                }
+                %>
             </select>
         </div>
         <div class="insert-control">
@@ -176,10 +184,10 @@
 
     //    点击添加信息按钮，检查输入信息，信息合法则将参数信息发送给"/insertPet"
     document.getElementById("insert").onclick = function () {
-        var petName = document.getElementById("petName").value;
-        var petType = document.getElementById("petType").value;
-        var petBirthDate = document.getElementById("petBirthDate").value;
-        var petOwnerName = document.getElementById("petOwnerName").value;
+        var petName = document.getElementById("petName2").value;
+        var petType = document.getElementById("petType2").value;
+        var petBirthDate = document.getElementById("petBirthDate2").value;
+        var petOwnerName = document.getElementById("petOwnerName2").value;
         if (petName === "" || petType === "" || petBirthDate === "" || petOwnerName === "") {
             document.getElementById("insert-box-error").innerHTML = "请输入完整信息";
             return;
