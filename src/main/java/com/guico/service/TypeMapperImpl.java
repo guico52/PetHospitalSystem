@@ -1,7 +1,7 @@
 package com.guico.service;
 
-import com.guico.mapper.TypeMapper;
-import com.guico.pojo.Type;
+import com.guico.dao.mapper.TypeMapper;
+import com.guico.dao.pojo.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

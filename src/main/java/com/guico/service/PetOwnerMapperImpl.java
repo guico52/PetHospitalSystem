@@ -1,7 +1,7 @@
 package com.guico.service;
 
-import com.guico.mapper.PetOwnerMapper;
-import com.guico.pojo.PetOwner;
+import com.guico.dao.mapper.PetOwnerMapper;
+import com.guico.dao.pojo.PetOwner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

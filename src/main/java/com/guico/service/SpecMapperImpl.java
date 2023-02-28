@@ -1,7 +1,7 @@
 package com.guico.service;
 
-import com.guico.mapper.SpecMapper;
-import com.guico.pojo.Spec;
+import com.guico.dao.mapper.SpecMapper;
+import com.guico.dao.pojo.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-﻿<%@ page import="com.guico.pojo.Vet" %>
+﻿<%@ page import="com.guico.dao.pojo.Vet" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: guico

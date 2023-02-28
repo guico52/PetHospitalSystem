@@ -1,4 +1,4 @@
-<%@ page import="com.guico.pojo.PetOwner" %><%--
+<%@ page import="com.guico.dao.pojo.PetOwner" %><%--
   Created by IntelliJ IDEA.
   User: guico
   Date: 2022/6/4

@@ -1,6 +1,6 @@
-<%@ page import="com.guico.pojo.Pet" %>
-<%@ page import="com.guico.pojo.Type" %>
-<%@ page import="com.guico.pojo.PetOwner" %>
+<%@ page import="com.guico.dao.pojo.Pet" %>
+<%@ page import="com.guico.dao.pojo.Type" %>
+<%@ page import="com.guico.dao.pojo.PetOwner" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: guico

@@ -36,6 +36,6 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!--要扫描的dao包-->
-        <property name="basePackage" value="com.guico.mapper"/>
+        <property name="basePackage" value="com.guico.dao.mapper"/>
     </bean>
 </beans>

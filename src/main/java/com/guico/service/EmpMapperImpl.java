@@ -1,7 +1,7 @@
 package com.guico.service;
 
-import com.guico.mapper.EmpMapper;
-import com.guico.pojo.Emp;
+import com.guico.dao.mapper.EmpMapper;
+import com.guico.dao.pojo.Emp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

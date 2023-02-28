@@ -1,6 +1,6 @@
 package com.guico.controller;
 
-import com.guico.pojo.Emp;
+import com.guico.dao.pojo.Emp;
 import com.guico.service.EmpMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,10 +1,9 @@
 package com.guico.service;
 
-import com.guico.mapper.VetMapper;
-import com.guico.pojo.Vet;
+import com.guico.dao.mapper.VetMapper;
+import com.guico.dao.pojo.Vet;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class VetMapperImpl implements VetMapper {
